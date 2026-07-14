@@ -184,9 +184,6 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 }
 .hero .eyebrow{opacity:0; animation:heroRise 0.7s ease 0.2s forwards;}
 .hero-title{opacity:0; animation:heroRise 0.75s ease 0.38s forwards;}
-.hero-sub{opacity:0; animation:heroRise 0.75s ease 0.54s forwards;}
-.hero-cta{opacity:0; animation:heroRise 0.75s ease 0.7s forwards;}
-.hero-stat-row{opacity:0; animation:heroRise 0.75s ease 0.86s forwards;}
 .eyebrow{
   font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.12em; color:var(--violet);
   display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:14px; text-transform:uppercase;
@@ -224,9 +221,13 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
   margin:0 auto;
   -webkit-transform-style:preserve-3d;
   transform-style:preserve-3d;
-  animation:cubeSpinIn 1.3s cubic-bezier(.22,1,.36,1) 0.15s both,
-            cubeIdleSpin 10s linear 1.6s infinite;
+  cursor:grab;
+  touch-action:none;
+  -webkit-user-select:none;
+  user-select:none;
+  animation:cubeSpinIn 1.3s cubic-bezier(.22,1,.36,1) 0.15s both;
 }
+.hero-logo-cube.is-dragging{cursor:grabbing;}
 .cube-face{
   position:absolute; inset:0;
   display:flex; align-items:center; justify-content:center;
@@ -241,18 +242,21 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 .cube-top{background:linear-gradient(135deg,var(--magenta),var(--amber)); -webkit-transform:rotateX(90deg) translateZ(calc(var(--cube-size) / 2)); transform:rotateX(90deg) translateZ(calc(var(--cube-size) / 2));}
 .cube-bottom{background:linear-gradient(135deg,var(--teal),var(--magenta)); -webkit-transform:rotateX(-90deg) translateZ(calc(var(--cube-size) / 2)); transform:rotateX(-90deg) translateZ(calc(var(--cube-size) / 2));}
 
+.cube-label{
+  font-family:var(--font-display); font-weight:600; color:#fff;
+  font-size:0.82rem; line-height:1.2; text-align:center; padding:0 10px;
+  pointer-events:none;
+}
+
 .hero-logo{
   display:block; max-width:76%; max-height:76%; width:auto; height:auto;
   background:transparent;
+  pointer-events:none;
 }
 
 @keyframes cubeSpinIn{
   0%{transform:rotateX(-30deg) rotateY(-340deg) scale(0.45);}
   100%{transform:rotateX(-16deg) rotateY(0deg) scale(1);}
-}
-@keyframes cubeIdleSpin{
-  0%{transform:rotateX(-16deg) rotateY(0deg);}
-  100%{transform:rotateX(-16deg) rotateY(360deg);}
 }
 @keyframes heroLogoFloat{
   0%,100%{transform:translateY(0);}
@@ -262,12 +266,6 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
   0%,100%{opacity:0.55; transform:scale(0.92);}
   50%{opacity:0.95; transform:scale(1.08);}
 }
-.hero-sub{font-size:1.05rem; max-width:46ch; margin:18px auto 0;}
-.hero-cta{display:flex; gap:12px; margin-top:8px; flex-wrap:wrap; justify-content:center;}
-.hero-stat-row{display:flex; gap:34px; margin-top:38px; justify-content:center;}
-.hero-stat{display:flex; flex-direction:column; align-items:center;}
-.hero-stat .num{font-family:var(--font-display); font-size:1.9rem; font-weight:700; color:var(--ink);}
-.hero-stat .label{font-family:var(--font-mono); font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;}
 
 /* ---------- sections ---------- */
 .section{padding:84px 24px;}
