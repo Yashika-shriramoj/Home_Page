@@ -193,22 +193,32 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 }
 .hero-title{font-size:clamp(2.1rem, 4.2vw, 3.4rem); letter-spacing:-0.01em; color:var(--ink);}
 .hero-accent{color:var(--magenta); font-family:var(--font-accent); font-style:italic; font-weight:500;}
-.hero-logo-wrap{margin:0 0 10px;}
+.hero-logo-wrap{margin:0 0 10px; opacity:1; animation:none;}
 
 .hero-logo-scene{
   width:fit-content;
   margin:0 auto;
 }
 .hero-logo-float{
+  position:relative;
   display:block;
   perspective:900px;
-  animation:heroLogoFloat 5.5s ease-in-out 1.5s infinite,
-            heroLogoGlow 3.4s ease-in-out 1.5s infinite;
-  border-radius:18px;
+  animation:heroLogoFloat 5.5s ease-in-out 1.5s infinite;
+}
+.hero-logo-glow{
+  position:absolute;
+  inset:-30%;
+  z-index:0;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(30,90,255,0.5) 0%, rgba(255,79,166,0.28) 45%, transparent 72%);
+  filter:blur(20px);
+  animation:heroLogoGlow 3.4s ease-in-out 1.5s infinite;
+  pointer-events:none;
 }
 .hero-logo-cube{
   --cube-size: clamp(112px, 15vw, 156px);
   position:relative;
+  z-index:1;
   width:var(--cube-size); height:var(--cube-size);
   margin:0 auto;
   transform-style:preserve-3d;
@@ -249,8 +259,8 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
   50%{transform:translateY(-9px);}
 }
 @keyframes heroLogoGlow{
-  0%,100%{filter:drop-shadow(0 0 14px rgba(30,90,255,0.35)) drop-shadow(0 0 28px rgba(255,79,166,0.18));}
-  50%{filter:drop-shadow(0 0 26px rgba(30,90,255,0.55)) drop-shadow(0 0 42px rgba(255,79,166,0.3));}
+  0%,100%{opacity:0.55; transform:scale(0.92);}
+  50%{opacity:0.95; transform:scale(1.08);}
 }
 .hero-sub{font-size:1.05rem; max-width:46ch; margin:18px auto 0;}
 .hero-cta{display:flex; gap:12px; margin-top:8px; flex-wrap:wrap; justify-content:center;}
