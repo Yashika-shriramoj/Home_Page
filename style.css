@@ -222,8 +222,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
   width:var(--cube-size); height:var(--cube-size);
   margin:0 auto;
   transform-style:preserve-3d;
-  opacity:0;
-  animation:cubeSpinIn 1.3s cubic-bezier(.22,1,.36,1) 0.15s forwards,
+  animation:cubeSpinIn 1.3s cubic-bezier(.22,1,.36,1) 0.15s both,
             cubeIdleSpin 10s linear 1.6s infinite;
 }
 .cube-face{
@@ -246,9 +245,8 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 }
 
 @keyframes cubeSpinIn{
-  0%{opacity:0; transform:rotateX(-30deg) rotateY(-340deg) scale(0.45);}
-  55%{opacity:1;}
-  100%{opacity:1; transform:rotateX(-16deg) rotateY(0deg) scale(1);}
+  0%{transform:rotateX(-30deg) rotateY(-340deg) scale(0.45);}
+  100%{transform:rotateX(-16deg) rotateY(0deg) scale(1);}
 }
 @keyframes cubeIdleSpin{
   0%{transform:rotateX(-16deg) rotateY(0deg);}
