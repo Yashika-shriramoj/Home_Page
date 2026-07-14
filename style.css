@@ -208,9 +208,9 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 }
 .hero-logo-glow{
   position:absolute;
-  inset:-30%;
+  inset:-14%;
   z-index:0;
-  border-radius:50%;
+  border-radius:0;
   background:radial-gradient(circle, rgba(30,90,255,0.5) 0%, rgba(255,79,166,0.28) 45%, transparent 72%);
   filter:blur(20px);
   animation:heroLogoGlow 3.4s ease-in-out 1.5s infinite;
