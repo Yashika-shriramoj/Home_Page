@@ -66,6 +66,68 @@ themeToggle.addEventListener("click", () => {
 });
 
 /* ---------------------------------------------------
+   1c. HERO LOGO CUBE — cursor-controlled 3D rotation
+   The CSS handles the one-time tumble-in entrance
+   (cubeSpinIn). Once that finishes, we cancel the CSS
+   animation and hand rotation control to the pointer so
+   dragging spins the cube freely. A short drag suppresses
+   the click-to-navigate on that face so taps still work.
+   --------------------------------------------------- */
+const heroCube = document.getElementById("heroCube");
+if(heroCube){
+  let rotX = -16, rotY = 0;
+  let dragging = false, moved = false;
+  let lastX = 0, lastY = 0;
+
+  const applyCubeTransform = () => {
+    heroCube.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+  };
+
+  heroCube.addEventListener("animationend", (e) => {
+    if(e.animationName === "cubeSpinIn"){
+      heroCube.style.animation = "none";
+      applyCubeTransform();
+    }
+  });
+
+  heroCube.addEventListener("pointerdown", (e) => {
+    dragging = true;
+    moved = false;
+    lastX = e.clientX;
+    lastY = e.clientY;
+    heroCube.classList.add("is-dragging");
+    heroCube.setPointerCapture(e.pointerId);
+  });
+
+  heroCube.addEventListener("pointermove", (e) => {
+    if(!dragging) return;
+    const dx = e.clientX - lastX;
+    const dy = e.clientY - lastY;
+    if(Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+    rotY += dx * 0.4;
+    rotX -= dy * 0.4;
+    lastX = e.clientX;
+    lastY = e.clientY;
+    applyCubeTransform();
+  });
+
+  const endDrag = () => {
+    dragging = false;
+    heroCube.classList.remove("is-dragging");
+  };
+  heroCube.addEventListener("pointerup", endDrag);
+  heroCube.addEventListener("pointercancel", endDrag);
+
+  heroCube.addEventListener("click", (e) => {
+    if(moved){
+      e.preventDefault();
+      e.stopPropagation();
+      moved = false;
+    }
+  });
+}
+
+/* ---------------------------------------------------
    2. NAV — mobile toggle + Domains dropdown
    --------------------------------------------------- */
 const navToggle = document.getElementById("navToggle");
