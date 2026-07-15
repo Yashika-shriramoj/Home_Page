@@ -2,7 +2,7 @@
    ACM-W BPHC — Design tokens
    Palette matched to the acm-w logo mark: blue and pink
    accents on a deep-navy + white base.
-   ==================================================== */
+   ===================================================== */
 :root{
   --ink:        #12327A;
   --ink-soft:   #1B45A8;
@@ -116,6 +116,7 @@ button{font-family:inherit; cursor:pointer;}
   display:flex; align-items:center; justify-content:space-between; gap:24px;
 }
 .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
+.nav-right{display:flex; align-items:center; gap:20px;}
 .brand-suffix{
   font-family:var(--font-display); font-weight:700; font-size:1.05rem;
   color:var(--ink); letter-spacing:0.01em;
@@ -227,7 +228,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 }
 .hero-tagline{
   font-family:var(--font-mono); font-size:1.35rem; letter-spacing:0.04em; text-transform:uppercase;
-  color:var(--ink); font-weight:600; margin:16px 0 0;
+  color:var(--ink); font-weight:700; margin:16px 0 0;
   opacity:0; animation:heroRise 0.7s ease 0.4s forwards;
 }
 .hero-mission{
@@ -243,7 +244,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 .hero-learn-more{
   display:inline-flex; align-items:center; gap:6px;
   font-family:var(--font-mono); font-size:0.9rem; font-weight:600;
-  color:var(--magenta); text-decoration:none; margin-top:20px;
+  color:var(--ink); text-decoration:none; margin-top:20px;
   opacity:0; animation:heroRise 0.7s ease 0.9s forwards;
 }
 .hero-learn-more:hover{color:var(--violet);}
@@ -487,13 +488,15 @@ body.edit-mode .card-edit-controls{display:flex;}
 }
 .field textarea{resize:vertical; min-height:70px;}
 .modal-actions{display:flex; gap:10px; margin-top:20px;}
+.contact-form{max-width:480px; margin-top:48px;}
+.contact-form textarea{min-height:120px;}
 
 /* ---------- footer ---------- */
 .site-footer{background:var(--navy-fixed); color:#F0D6E4; padding:64px 24px 30px;}
 .footer-inner{max-width:var(--container); margin:0 auto; display:grid; grid-template-columns:1fr 2fr; gap:48px;}
 .footer-brand p{color:#F0D6E4; margin:12px 0 2px; font-family:var(--font-display); font-size:1.1rem;}
 .footer-brand .muted{color:#B08094; font-size:0.82rem;}
-.footer-links{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+.footer-links{display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:360px;}
 .footer-links h4{color:#fff; font-size:0.85rem; margin-bottom:14px; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.05em;}
 .footer-links a{display:block; color:#D9A9C2; text-decoration:none; font-size:0.9rem; margin-bottom:10px;}
 .footer-links a:hover{color:var(--amber);}
