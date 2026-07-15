@@ -18,8 +18,11 @@
   --line:       #DCE7F5;
   --line-dark:  rgba(255,255,255,0.14);
   --shadow:     rgba(11,11,13,0.09);
-  --grid-dot:   rgba(30,90,255,0.32);
-  --glow-color: rgba(30,90,255,0.28);
+  --grad-1:     #FFFFFF;
+  --grad-2:     #EAF3FF;
+  --grad-3:     #BFE0FF;
+  --grad-4:     #DCE9FF;
+  --accent-pink: rgba(255,79,166,0.3);
 
   /* Fixed-dark tokens: chips like the terminal, footer, and fest
      cards are designed as dark navy panels with light text baked
@@ -49,8 +52,11 @@ html[data-theme="dark"]{
   --muted:      #93A3C6;
   --line:       rgba(255,255,255,0.14);
   --shadow:     rgba(0,0,0,0.35);
-  --grid-dot:   rgba(255,255,255,0.2);
-  --glow-color: rgba(255,255,255,0.16);
+  --grad-1:     #060D1E;
+  --grad-2:     #0A1730;
+  --grad-3:     #12275A;
+  --grad-4:     #0A1730;
+  --accent-pink: rgba(255,79,166,0.22);
 }
 html{transition:background 0.25s ease;}
 body{transition:background 0.25s ease, color 0.25s ease;}
@@ -189,21 +195,19 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
   z-index:0;
   overflow:hidden;
   pointer-events:none;
+  background-image:
+    radial-gradient(circle, var(--accent-pink) 0%, transparent 55%),
+    linear-gradient(120deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4), var(--grad-1));
+  background-size:55% 55%, 320% 320%;
+  background-position:70% 30%, 0% 50%;
+  animation:heroGradientFlow 18s ease-in-out infinite;
 }
-.hero-grid{
-  position:absolute; inset:-15%;
-  background-image:radial-gradient(circle, var(--grid-dot) 1.6px, transparent 1.6px);
-  background-size:34px 34px;
-  -webkit-mask-image:radial-gradient(circle at center, black 0%, black 30%, transparent 68%);
-  mask-image:radial-gradient(circle at center, black 0%, black 30%, transparent 68%);
-}
-.hero-glow{
-  position:absolute; top:50%; left:64%;
-  width:min(56vw, 700px); height:min(56vw, 700px);
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  background:radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
-  filter:blur(60px);
+@keyframes heroGradientFlow{
+  0%{background-position:70% 30%, 0% 50%;}
+  25%{background-position:58% 48%, 50% 30%;}
+  50%{background-position:38% 62%, 100% 50%;}
+  75%{background-position:55% 38%, 50% 70%;}
+  100%{background-position:70% 30%, 0% 50%;}
 }
 .hero-inner{
   position:relative; z-index:1;
@@ -543,7 +547,7 @@ body.edit-mode .card-edit-controls{display:flex;}
   .hero-copy{text-align:center;}
   .hero-mission, .hero-vision{margin-left:auto; margin-right:auto;}
   .hero-visual{order:-1;}
-  .hero-glow{left:50%;}
+  .hero-bg{background-position:50% 40%, 0% 50%;}
   .about-grid, .events-grid{grid-template-columns:1fr;}
   .footer-inner{grid-template-columns:1fr; gap:32px;}
   .footer-links{grid-template-columns:1fr 1fr;}
