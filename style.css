@@ -2,7 +2,7 @@
    ACM-W BPHC — Design tokens
    Palette matched to the acm-w logo mark: blue and pink
    accents on a deep-navy + white base.
-   ==================================================== */
+   ===================================================== */
 :root{
   --ink:        #12327A;
   --ink-soft:   #1B45A8;
@@ -18,10 +18,10 @@
   --line:       #DCE7F5;
   --line-dark:  rgba(255,255,255,0.14);
   --shadow:     rgba(11,11,13,0.09);
-  --grad-1:     #123FBF;
-  --grad-2:     #6D28D9;
-  --grad-3:     #C0268C;
-  --grad-4:     #7C3AED;
+  --grad-1:     #DCE9FF;
+  --grad-2:     #D8CCF5;
+  --grad-3:     #F3CCE3;
+  --grad-4:     #CBB9EE;
 
   /* Fixed-dark tokens: chips like the terminal, footer, and fest
      cards are designed as dark navy panels with light text baked
@@ -51,10 +51,10 @@ html[data-theme="dark"]{
   --muted:      #93A3C6;
   --line:       rgba(255,255,255,0.14);
   --shadow:     rgba(0,0,0,0.35);
-  --grad-1:     #6EA8FF;
-  --grad-2:     #B794F6;
-  --grad-3:     #F472B6;
-  --grad-4:     #C4B5FD;
+  --grad-1:     #16213E;
+  --grad-2:     #2E2154;
+  --grad-3:     #4A2340;
+  --grad-4:     #2A1F4D;
 }
 html{transition:background 0.25s ease;}
 body{transition:background 0.25s ease, color 0.25s ease;}
