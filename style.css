@@ -18,10 +18,10 @@
   --line:       #DCE7F5;
   --line-dark:  rgba(255,255,255,0.14);
   --shadow:     rgba(11,11,13,0.09);
-  --grad-1:     #DCE9FF;
-  --grad-2:     #D8CCF5;
-  --grad-3:     #F3CCE3;
-  --grad-4:     #CBB9EE;
+  --grad-1:     #F3F7FF;
+  --grad-2:     #F0ECFB;
+  --grad-3:     #FBEDF5;
+  --grad-4:     #EEE8FB;
 
   /* Fixed-dark tokens: chips like the terminal, footer, and fest
      cards are designed as dark navy panels with light text baked
