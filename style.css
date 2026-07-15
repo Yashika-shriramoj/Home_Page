@@ -18,10 +18,10 @@
   --line:       #DCE7F5;
   --line-dark:  rgba(255,255,255,0.14);
   --shadow:     rgba(11,11,13,0.09);
-  --grad-1:     #F3F7FF;
-  --grad-2:     #F0ECFB;
-  --grad-3:     #FBEDF5;
-  --grad-4:     #EEE8FB;
+  --grad-1:     #BFDBFF;
+  --grad-2:     #A9BFF5;
+  --grad-3:     #E3B8DC;
+  --grad-4:     #B3A8EC;
 
   /* Fixed-dark tokens: chips like the terminal, footer, and fest
      cards are designed as dark navy panels with light text baked
@@ -51,10 +51,10 @@ html[data-theme="dark"]{
   --muted:      #93A3C6;
   --line:       rgba(255,255,255,0.14);
   --shadow:     rgba(0,0,0,0.35);
-  --grad-1:     #16213E;
-  --grad-2:     #2E2154;
-  --grad-3:     #4A2340;
-  --grad-4:     #2A1F4D;
+  --grad-1:     #2A3F72;
+  --grad-2:     #3B3873;
+  --grad-3:     #5C2F55;
+  --grad-4:     #3A2F6E;
 }
 html{transition:background 0.25s ease;}
 body{transition:background 0.25s ease, color 0.25s ease;}
@@ -192,7 +192,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
   position:fixed; inset:0;
   z-index:-1;
   pointer-events:none;
-  background:linear-gradient(120deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-4), var(--grad-1));
+  background:linear-gradient(120deg, var(--grad-1) 0%, var(--grad-2) 38%, var(--grad-3) 62%, var(--grad-4) 82%, var(--grad-1) 100%);
   background-size:400% 400%;
   animation:heroGradientFlow 24s ease-in-out infinite;
 }
