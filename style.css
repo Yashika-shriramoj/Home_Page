@@ -1,4 +1,4 @@
-/* ====================================================
+/* =====================================================
    ACM-W BPHC — Design tokens
    Palette matched to the acm-w logo mark: blue and pink
    accents on a deep-navy + white base.
@@ -180,9 +180,9 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 /* ---------- hero ---------- */
 .hero{
   position:relative;
-  max-width:840px; margin:0 auto; padding:56px 24px;
+  max-width:1180px; margin:0 auto; padding:56px 24px;
   min-height:calc(100vh - 68px);
-  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  display:flex; align-items:center; justify-content:center;
 }
 .hero-bg{
   position:absolute; inset:0;
@@ -198,31 +198,60 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
   mask-image:radial-gradient(circle at center, black 0%, black 30%, transparent 68%);
 }
 .hero-glow{
-  position:absolute; top:50%; left:50%;
-  width:min(64vw, 760px); height:min(64vw, 760px);
+  position:absolute; top:50%; left:64%;
+  width:min(56vw, 700px); height:min(56vw, 700px);
   transform:translate(-50%,-50%);
   border-radius:50%;
   background:radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
   filter:blur(60px);
 }
-.hero-inner{position:relative; z-index:1;}
+.hero-inner{
+  position:relative; z-index:1;
+  width:100%;
+  display:grid;
+  grid-template-columns:1.15fr 0.85fr;
+  align-items:center;
+  gap:40px;
+}
 @keyframes heroRise{
   from{opacity:0; transform:translateY(26px);}
   to{opacity:1; transform:translateY(0);}
 }
-.hero .eyebrow{opacity:0; animation:heroRise 0.7s ease 0.2s forwards;}
-.hero-title{opacity:0; animation:heroRise 0.75s ease 0.38s forwards;}
 .eyebrow{
   font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.12em; color:var(--violet);
-  display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:14px; text-transform:uppercase;
+  display:flex; align-items:center; gap:10px; margin-bottom:14px; text-transform:uppercase;
 }
-.hero-title{font-size:clamp(2.1rem, 4.2vw, 3.4rem); letter-spacing:-0.01em; color:var(--ink);}
+.hero-copy{text-align:left;}
+.hero-heading{
+  font-size:clamp(2rem, 3.6vw, 3.1rem); letter-spacing:-0.01em; color:var(--ink);
+  opacity:0; animation:heroRise 0.75s ease 0.2s forwards;
+}
+.hero-tagline{
+  font-family:var(--font-mono); font-size:1rem; letter-spacing:0.04em; text-transform:uppercase;
+  color:var(--magenta); font-weight:600; margin:16px 0 0;
+  opacity:0; animation:heroRise 0.7s ease 0.4s forwards;
+}
+.hero-mission{
+  font-size:1.02rem; max-width:52ch; margin:18px 0 0;
+  opacity:0; animation:heroRise 0.7s ease 0.58s forwards;
+}
+.hero-mission strong{color:var(--ink); font-family:var(--font-display); font-weight:600;}
+.hero-vision{
+  font-size:1.02rem; max-width:52ch; margin:12px 0 0;
+  opacity:0; animation:heroRise 0.7s ease 0.74s forwards;
+}
+.hero-vision strong{color:var(--ink); font-family:var(--font-display); font-weight:600;}
 .hero-accent{color:var(--magenta); font-family:var(--font-accent); font-style:italic; font-weight:500;}
-.hero-logo-wrap{margin:0 0 10px; opacity:1; animation:none;}
+.hero-visual{
+  display:flex; align-items:center; justify-content:flex-end;
+  opacity:0; animation:heroRise 0.8s ease 0.3s forwards;
+}
+.hero-logo-wrap{margin:0;}
 
 .hero-logo-scene{
   width:fit-content;
   margin:0 auto;
+  transform:rotate(45deg);
 }
 .hero-logo-float{
   position:relative;
@@ -284,6 +313,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
   display:block; max-width:76%; max-height:76%; width:auto; height:auto;
   background:transparent;
   pointer-events:none;
+  transform:rotate(-45deg);
 }
 
 @keyframes cubeSpinIn{
@@ -509,6 +539,11 @@ body.edit-mode .card-edit-controls{display:flex;}
 /* ---------- responsive ---------- */
 @media (max-width: 900px){
   .hero{padding-top:48px;}
+  .hero-inner{grid-template-columns:1fr; text-align:center; gap:20px;}
+  .hero-copy{text-align:center;}
+  .hero-mission, .hero-vision{margin-left:auto; margin-right:auto;}
+  .hero-visual{order:-1;}
+  .hero-glow{left:50%;}
   .about-grid, .events-grid{grid-template-columns:1fr;}
   .footer-inner{grid-template-columns:1fr; gap:32px;}
   .footer-links{grid-template-columns:1fr 1fr;}
