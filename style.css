@@ -191,6 +191,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
   max-width:1180px; margin:0 auto; padding:56px 24px;
   min-height:calc(100vh - 68px);
   display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
 }
 .site-bg{
   position:fixed; inset:0;
@@ -551,7 +552,7 @@ body.edit-mode .card-edit-controls{display:flex;}
   .hero-inner{grid-template-columns:1fr; text-align:center; gap:20px;}
   .hero-copy{text-align:center;}
   .hero-mission, .hero-vision, .hero-learn-more{margin-left:auto; margin-right:auto;}
-  .hero-visual{order:-1;}
+  .hero-visual{order:-1; justify-content:center;}
   .about-grid, .events-grid{grid-template-columns:1fr;}
   .footer-inner{grid-template-columns:1fr; gap:32px;}
   .footer-links{grid-template-columns:1fr 1fr;}
