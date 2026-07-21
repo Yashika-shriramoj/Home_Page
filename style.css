@@ -254,7 +254,15 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
   display:flex; align-items:center; justify-content:flex-end;
   opacity:0; animation:heroRise 0.8s ease 0.3s forwards;
 }
-.hero-logo-wrap{margin:0; padding:70px;}
+.hero-logo-wrap{
+  --cube-size: clamp(170px, 26vw, 280px);
+  width: calc(var(--cube-size) * 1.42 + 60px);
+  height: calc(var(--cube-size) * 1.42 + 60px);
+  margin:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
 .hero-logo-scene{
   width:fit-content;
