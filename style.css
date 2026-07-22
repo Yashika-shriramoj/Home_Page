@@ -253,10 +253,24 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
   display:flex; flex-direction:column; align-items:flex-end; gap:16px;
   opacity:0; animation:heroRise 0.8s ease 0.3s forwards;
 }
-.hero-logo-wrap{margin:0;}
+.hero-logo-wrap{margin:0 0 clamp(34px, 5.4vw, 58px);}
+.hero-cube-caption-wrap{
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  width:100%;
+}
 .hero-cube-caption{
   font-family:var(--font-mono); font-size:0.82rem; color:var(--muted);
   text-align:center; width:100%; margin:0;
+}
+.hero-cube-arrow{
+  width:34px; height:auto;
+  color:var(--magenta);
+  transform:rotate(8deg);
+  animation:cubeArrowWiggle 2.2s ease-in-out infinite;
+}
+@keyframes cubeArrowWiggle{
+  0%,100%{transform:rotate(8deg) translateY(0);}
+  50%{transform:rotate(-6deg) translateY(3px);}
 }
 
 .hero-logo-scene{
