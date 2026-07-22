@@ -2,7 +2,7 @@
    ACM-W BPHC — Design tokens
    Palette matched to the acm-w logo mark: blue and pink
    accents on a deep-navy + white base.
-   ==================================================== */
+   ===================================================== */
 :root{
   --ink:        #12327A;
   --ink-soft:   #1B45A8;
@@ -260,17 +260,14 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 }
 .hero-cube-caption{
   font-family:var(--font-mono); font-size:1rem; color:var(--muted);
-  text-align:center; width:100%; margin:0;
+  text-align:center; margin:0;
+  display:inline-block;
+  animation:captionSpin 4.5s ease-in-out infinite;
 }
-.hero-cube-arrow{
-  width:48px; height:auto;
-  color:var(--magenta);
-  transform:rotate(8deg);
-  animation:cubeArrowWiggle 2.2s ease-in-out infinite;
-}
-@keyframes cubeArrowWiggle{
-  0%,100%{transform:rotate(8deg) translateY(0);}
-  50%{transform:rotate(-6deg) translateY(3px);}
+@keyframes captionSpin{
+  0%, 70%{transform:rotate(0deg);}
+  90%{transform:rotate(360deg);}
+  100%{transform:rotate(360deg);}
 }
 
 .hero-logo-scene{
