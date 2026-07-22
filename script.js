@@ -24,7 +24,7 @@ function showPage(id, anchor){
   if(!document.getElementById("page-" + id)) id = "home";
   pages.forEach(p => p.classList.toggle("is-active", p.id === "page-" + id));
   pageLinks.forEach(a => {
-    a.classList.toggle("is-active", a.dataset.page === id);
+    a.classList.toggle("is-active", a.dataset.page === id && !a.dataset.anchor);
   });
   window.scrollTo({top:0, behavior:"instant"});
   history.replaceState(null, "", "#" + id);
