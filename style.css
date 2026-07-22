@@ -457,6 +457,12 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 .event-type[data-type="Deadline"]{color:#e0574b;}
 .event-type[data-type="Meeting"]{color:var(--teal);}
 .event-type[data-type="Community"]{color:var(--amber);}
+.event-type[data-type="Holiday"]{color:var(--amber);}
+.event-type[data-type="Academic"]{color:var(--violet);}
+.event-type[data-type="Exam"]{color:var(--magenta);}
+.event-type[data-type="Fest"]{color:var(--teal);}
+.event-type[data-type="Recess"]{color:var(--muted);}
+.event-type[data-type="Event"]{color:var(--ink-soft);}
 .day-detail{margin-top:20px; padding:16px; background:var(--paper-tint); border-radius:10px; font-size:0.88rem;}
 
 
