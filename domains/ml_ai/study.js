@@ -1,5 +1,5 @@
 /* =====================================================
-   ACM-W BPHC — study.html content loader
+   ACM-W BPHC — study.html / study.js content loader
    Reads ?topic=<slug> from the URL and fills in the
    template with that topic's title + study material.
    Topics with a `content` field render that HTML directly;
@@ -23,10 +23,9 @@ const TOPICS = {
         <li><a class="text-link" href="https://github.com/crux-bphc/dev-summer-group-2024/tree/main/Machine%20Learning/Week%202" target="_blank" rel="noopener">Data Processing &amp; Visualization — Week 2</a></li>
       </ul>
 
-      <h3>
-      Types of Machine Learning</h3>
+      <h3>Types of Machine Learning</h3>
       <p>Machine learning is broadly split into four categories, each suited to different kinds of problems:</p>
-      <img src="domains/ml_ai/preview.png" alt="Diagram showing the four types of machine learning — supervised, unsupervised, semi-supervised, and reinforcement learning — with example applications for each">
+      <img src="ml-types.png" alt="Diagram showing the four types of machine learning — supervised, unsupervised, semi-supervised, and reinforcement learning — with example applications for each">
 
       <p>Some of the resources linked across topics may overlap with each other — if a resource repeats something you've already covered, feel free to skip ahead. We'd also recommend writing and running your code on Google Colab as you follow along. Expect regular quizzes and a small project at the end of this track, so keep pace with each topic as it's released.</p>
     `
@@ -57,8 +56,7 @@ const TOPICS = {
         <li><a class="text-link" href="https://www.geeksforgeeks.org/machine-learning/regression-in-machine-learning/" target="_blank" rel="noopener">Regression in Machine Learning — GeeksforGeeks</a></li>
       </ul>
 
-      <h3>
-      Simple Linear Regression in Colab</h3>
+      <h3>Simple Linear Regression in Colab</h3>
       <p>Follow along and write your own simple linear regression code:</p>
       <p><a class="text-link" href="https://medium.com/@sarakarim/linear-regression-for-machine-learning-with-google-colab-7055563e5e82" target="_blank" rel="noopener">Linear Regression with Google Colab — Medium →</a></p>
       <p>For any values of <em>m</em> and <em>c</em>, there are infinitely many possible lines — so how do we find the best one?</p>
@@ -72,11 +70,11 @@ const TOPICS = {
       <p>In practice, gradient descent is handled for you by standard libraries like scikit-learn (the same library used in the Linear Regression video above), so you won't need to implement it yourself — but it's still an important concept to understand.</p>
 
       <h2 id="classification">Classification</h2>
-      <img src="domains/ml_ai/preview (2).png" alt="Scatter plot showing two categories of data points and a new data point being classified based on its nearest neighbors">
+      <img src="classification.png" alt="Scatter plot showing two categories of data points and a new data point being classified based on its nearest neighbors">
 
       <h3>Logistic Regression</h3>
       <p>Logistic Regression is used for classification tasks — predicting the probability of a categorical outcome by modeling the relationship between input variables and that outcome. It uses the sigmoid (S-shaped) function to squash predictions into a 0-to-1 probability range, which then gets classified based on a threshold (e.g. above 0.5 means "yes").</p>
-      <img src="domains/ml_ai/preview (1).png" alt="Graph of the sigmoid function, an S-shaped curve mapping any input to a value between 0 and 1">
+      <img src="logistic-regression.png" alt="Graph of the sigmoid function, an S-shaped curve mapping any input to a value between 0 and 1">
       <p><a class="text-link" href="https://www.youtube.com/watch?v=zM4VZR0px8E" target="_blank" rel="noopener">Logistic Regression — video walkthrough →</a></p>
       <p><a class="text-link" href="https://github.com/crux-bphc/dev-summer-group-2024/blob/main/Machine%20Learning/Week%202/3_binary_classification.ipynb" target="_blank" rel="noopener">Code: Binary Classification →</a></p>
 
@@ -87,7 +85,7 @@ const TOPICS = {
 
       <h3>Decision Trees</h3>
       <p>Decision Trees use a hierarchical, tree-like structure to model decisions and their possible outcomes. They work by recursively splitting a dataset into smaller, more homogeneous subsets based on specific features, eventually arriving at a final prediction or classification. The process of building one from data is called Decision Tree Learning.</p>
-      <img src="domains/ml_ai/preview (3).png" alt="Simple decision tree flowchart asking whether a person is fit, branching on age, pizza consumption, and morning exercise">
+      <img src="decision-tree.png" alt="Simple decision tree flowchart asking whether a person is fit, branching on age, pizza consumption, and morning exercise">
       <ul>
         <li><a class="text-link" href="https://www.youtube.com/watch?v=_L39rN6gz7Y&t=18s" target="_blank" rel="noopener">Decision Trees — video walkthrough (part 1)</a></li>
         <li><a class="text-link" href="https://www.youtube.com/watch?v=PHxYNGo8NcI" target="_blank" rel="noopener">Decision Trees — video walkthrough (part 2)</a></li>
