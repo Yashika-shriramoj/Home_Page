@@ -25,7 +25,9 @@ const TOPICS = {
 
       <h3>Types of Machine Learning</h3>
       <p>Machine learning is broadly split into four categories, each suited to different kinds of problems:</p>
-      <img src="ml-types.png" alt="Diagram showing the four types of machine learning — supervised, unsupervised, semi-supervised, and reinforcement learning — with example applications for each">
+      <img src="ml-types.png" 
+      style="max-width: 550px; width: 100%; height: auto; margin: 1.5rem auto; display: block; border-radius: 8px;"
+      alt="Diagram showing the four types of machine learning — supervised, unsupervised, semi-supervised, and reinforcement learning — with example applications for each">
 
       <p>Some of the resources linked across topics may overlap with each other — if a resource repeats something you've already covered, feel free to skip ahead. We'd also recommend writing and running your code on Google Colab as you follow along. Expect regular quizzes and a small project at the end of this track, so keep pace with each topic as it's released.</p>
     `
