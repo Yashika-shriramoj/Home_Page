@@ -111,9 +111,13 @@
    space here). */
 #resources{padding-top:32px;}
 
-/* ---------- study material page ---------- */
+/* ---------- study material page ----------
+   Body copy on this page uses --ink-soft rather than the
+   site-wide --muted paragraph color, since long-form reading
+   needs stronger contrast against the background than short
+   captions/labels do. */
 .study-content{max-width:70ch; margin:0 auto;}
-.study-content p{font-size:1rem; margin-bottom:1.2em;}
+.study-content p{font-size:1rem; line-height:1.75; margin-bottom:1.2em; color:var(--ink-soft);}
 .study-content h2{font-size:1.3rem; color:var(--ink); margin:1.6em 0 0.6em;}
 .study-content h2:first-child{margin-top:0;}
 
