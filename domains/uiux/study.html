@@ -1,85 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">Study Material · ACM-W BPHC</title>
-<meta name="description" content="ACM-W BPHC — study material.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../style.css">
-<link rel="stylesheet" href="../domain-page.css">
-<script>
-  (function(){
-    var saved = localStorage.getItem("acmw-theme");
-    var theme = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    document.documentElement.setAttribute("data-theme", theme);
-  })();
-</script>
-</head>
-<body>
-<div class="site-bg" aria-hidden="true"></div>
-
-<header class="site-header" id="top">
-  <div class="nav-wrap">
-    <div class="nav-right">
-      <a class="brand" href="../../index.html">
-        <span class="brand-suffix">ACM-W BPHC</span>
-      </a>
-
-      <div class="header-actions">
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
-          <span class="toggle-knob">
-            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-            <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 14.7A8.5 8.5 0 0 1 9.3 3.6a.5.5 0 0 0-.6-.7A9.5 9.5 0 1 0 21.1 15.3a.5.5 0 0 0-.7-.6Z"/></svg>
-          </span>
-        </button>
-
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-
-    <nav class="main-nav" id="mainNav">
-      <a href="../../index.html#about" class="nav-link">About</a>
-      <a href="../../index.html#domains" class="nav-link">Domains</a>
-      <a href="../../index.html#events" class="nav-link">Events</a>
-      <a href="../../index.html#fests" class="nav-link">Fests</a>
-      <a href="../../index.html#projects" class="nav-link">Projects &amp; Blogs</a>
-      <a href="../../contact_us_page/contact.html" class="nav-link">Contact Us</a>
-    </nav>
-  </div>
-</header>
-
-<main>
-  <section class="page-hero">
-    <a href="#" id="backToDomain" class="back-link">← Back to UI/UX</a>
-    <p class="eyebrow"><span class="bars bars--xs"></span> STUDY MATERIAL</p>
-    <h1 class="page-hero-title" id="topicTitle">Loading…</h1>
-    <p class="page-hero-sub" id="topicIntro"></p>
-  </section>
-
-  <section class="section">
-    <div class="section-inner">
-      <article class="study-content" id="topicContent"></article>
-    </div>
-  </section>
-</main>
-
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <span class="bars bars--sm"></span>
-      <p>ACM-W BPHC</p>
-      <p class="muted">Student chapter · BITS Pilani, Hyderabad Campus</p>
-    </div>
-    </div>
-  </div>
-  <p class="footer-copy">© <span id="year"></span> ACM-W, BITS Pilani Hyderabad Campus. Built by the chapter, for the chapter.</p>
-</footer>
-
-<script src="../domain-page.js"></script>
-<script src="study.js"></script>
-</body>
-</html>
+/* =====================================================
+   ACM-W BPHC — study.html content loader
+   Reads ?topic=<slug> from the URL and fills in the
+   template with that topic's title + (placeholder)
+   study material. Add new topics to TOPICS below as
+   more resource cards are added across domain pages.
+   ===================================================== */
+const TOPICS = {
+  "figma-fundamentals": {
+    domainLabel: "UI/UX",
+    domainHref: "uiux.html",
+    title: "Figma Fundamentals",
+    intro: "Frames, components, auto layout, and the basics every UI/UX member needs to know.",
+  },
+  "user-flows-wireframes": {
+    domainLabel: "UI/UX",
+    domainHref: "uiux.html",
+    title: "User Flows & Wireframing",
+    intro: "Mapping how someone actually moves through a page before you design a single pixel.",
+  },
+  "designing-for-the-user": {
+    domainLabel: "UI/UX",
+    domainHref: "uiux.html",
+    title: "Designing from the User's Perspective",
+    intro: "Usability heuristics, accessibility basics, and thinking like the person filling out the form.",
+  },
+  "web-ui-dashboards": {
+    domainLabel: "UI/UX",
+    domainHref: "uiux.html",
+    title: "Web UI & Dashboards",
+    intro: "Designing for the club website and hackathon dashboards — layout, hierarchy, and responsive design.",
+  },
+  "brand-templates": {
+    domainLabel: "UI/UX",
+    domainHref: "uiux.html",
+    title: "Brand Systems & Templates",
+    intro: "Building reusable certificate templates and social media kits that stay on-brand every time.",
+  },
+};
+const LOREM_SECTIONS = [
+  {
+    heading: "Overview",
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    heading: "Key Concepts",
+    body: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  },
+  {
+    heading: "Worked Example",
+    body: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+  },
+  {
+    heading: "Practice",
+    body: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet."
+  },
+];
+function renderTopic(slug){
+  const topic = TOPICS[slug];
+  const titleEl = document.getElementById("topicTitle");
+  const introEl = document.getElementById("topicIntro");
+  const contentEl = document.getElementById("topicContent");
+  const backEl = document.getElementById("backToDomain");
+  if(!topic){
+    document.title = "Topic not found · ACM-W BPHC";
+    titleEl.textContent = "Topic not found";
+    introEl.textContent = "We couldn't find study material for this topic. Head back and pick one from the Resources section.";
+    contentEl.innerHTML = "";
+    backEl.textContent = "← Back to home";
+    backEl.href = "../../index.html#home";
+    return;
+  }
+  document.title = topic.title + " · ACM-W BPHC";
+  titleEl.textContent = topic.title;
+  introEl.textContent = topic.intro;
+  backEl.textContent = "← Back to " + topic.domainLabel;
+  backEl.href = topic.domainHref;
+  contentEl.innerHTML = LOREM_SECTIONS.map(section =>
+    `<h2>${section.heading}</h2><p>${section.body}</p>`
+  ).join("");
+}
+const params = new URLSearchParams(window.location.search);
+renderTopic(params.get("topic"));
