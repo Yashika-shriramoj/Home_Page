@@ -7,6 +7,18 @@
    placeholder until real material is written for them.
    ===================================================== */
 const TOPICS = {
+  "intro-to-ml": {
+    domainLabel: "Machine Learning & AI",
+    domainHref: "ml_ai.html",
+    title: "Intro to ML",
+    intro: "A hands-on starting point for the domain — all the core material lives in a single GitHub repository.",
+    content: `
+      <p>All the material for this topic lives in one GitHub repository — everything from setup instructions to notes and code is organized there.</p>
+      <p><a class="text-link" href="https://github.com/SRUTIGUDURU/ACM-W_ML_CORE" target="_blank" rel="noopener">ACM-W_ML_CORE — GitHub repository →</a></p>
+
+      <p><em>Made by Sruti Guduru</em></p>
+    `
+  },
   "what-is-ml": {
     domainLabel: "Machine Learning & AI",
     domainHref: "ml_ai.html",
@@ -25,11 +37,14 @@ const TOPICS = {
 
       <h3>Types of Machine Learning</h3>
       <p>Machine learning is broadly split into four categories, each suited to different kinds of problems:</p>
-      <img src="ml-types.png" 
+      <img src="ml-types.png"
       style="max-width: 550px; width: 100%; height: auto; margin: 1.5rem auto; display: block; border-radius: 8px;"
       alt="Diagram showing the four types of machine learning — supervised, unsupervised, semi-supervised, and reinforcement learning — with example applications for each">
 
       <p>Some of the resources linked across topics may overlap with each other — if a resource repeats something you've already covered, feel free to skip ahead. We'd also recommend writing and running your code on Google Colab as you follow along. Expect regular quizzes and a small project at the end of this track, so keep pace with each topic as it's released.</p>
+
+      <p><a class="text-link" href="https://acmw-ml.notion.site/2cc815b38fac8007a466c2dd5e249828?v=2cc815b38fac812d9330000c973bf5d2&p=2cc815b38fac80b2b722cca47ec7434d&pm=s" target="_blank" rel="noopener">Full notes on Notion →</a></p>
+      <p><em>Made by Pavithra Ramesh</em></p>
     `
   },
   "python-for-ml": {
@@ -93,6 +108,9 @@ const TOPICS = {
         <li><a class="text-link" href="https://www.youtube.com/watch?v=PHxYNGo8NcI" target="_blank" rel="noopener">Decision Trees — video walkthrough (part 2)</a></li>
       </ul>
       <p><a class="text-link" href="https://github.com/crux-bphc/dev-summer-group-2024/blob/main/Machine%20Learning/Week%203/2_Decision_Trees.ipynb" target="_blank" rel="noopener">Code: Decision Trees →</a></p>
+
+      <p><a class="text-link" href="https://acmw-ml.notion.site/2cc815b38fac8007a466c2dd5e249828?v=2cc815b38fac812d9330000c973bf5d2&p=2cc815b38fac80b2b722cca47ec7434d&pm=s" target="_blank" rel="noopener">Full notes on Notion →</a></p>
+      <p><em>Made by Pavithra Ramesh</em></p>
     `
   },
   "neural-networks": {
