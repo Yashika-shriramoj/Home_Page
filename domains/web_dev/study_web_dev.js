@@ -5,7 +5,6 @@
    study material. Add new topics to TOPICS below as
    more resource cards are added to the Web Dev page.
    ===================================================== */
-
 const TOPICS = {
   "html-css-basics": {
     domainLabel: "Web Dev",
@@ -38,7 +37,6 @@ const TOPICS = {
     intro: "Version control basics and shipping a site with GitHub Pages.",
   },
 };
-
 const LOREM_SECTIONS = [
   {
     heading: "Overview",
@@ -57,34 +55,29 @@ const LOREM_SECTIONS = [
     body: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet."
   },
 ];
-
 function renderTopic(slug){
   const topic = TOPICS[slug];
   const titleEl = document.getElementById("topicTitle");
   const introEl = document.getElementById("topicIntro");
   const contentEl = document.getElementById("topicContent");
   const backEl = document.getElementById("backToDomain");
-
   if(!topic){
     document.title = "Topic not found · ACM-W BPHC";
     titleEl.textContent = "Topic not found";
     introEl.textContent = "We couldn't find study material for this topic. Head back and pick one from the Resources section.";
     contentEl.innerHTML = "";
     backEl.textContent = "← Back to home";
-    backEl.href = "index.html#home";
+    backEl.href = "../../index.html#home";
     return;
   }
-
   document.title = topic.title + " · ACM-W BPHC";
   titleEl.textContent = topic.title;
   introEl.textContent = topic.intro;
   backEl.textContent = "← Back to " + topic.domainLabel;
   backEl.href = topic.domainHref;
-
   contentEl.innerHTML = LOREM_SECTIONS.map(section =>
     `<h2>${section.heading}</h2><p>${section.body}</p>`
   ).join("");
 }
-
 const params = new URLSearchParams(window.location.search);
 renderTopic(params.get("topic"));

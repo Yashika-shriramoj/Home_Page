@@ -19,14 +19,12 @@
 </head>
 <body>
 <div class="site-bg" aria-hidden="true"></div>
-
 <header class="site-header" id="top">
   <div class="nav-wrap">
     <div class="nav-right">
       <a class="brand" href="../../index.html">
         <span class="brand-suffix">ACM-W BPHC</span>
       </a>
-
       <div class="header-actions">
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
           <span class="toggle-knob">
@@ -34,14 +32,13 @@
             <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 14.7A8.5 8.5 0 0 1 9.3 3.6a.5.5 0 0 0-.6-.7A9.5 9.5 0 1 0 21.1 15.3a.5.5 0 0 0-.7-.6Z"/></svg>
           </span>
         </button>
-
         <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
     </div>
-
     <nav class="main-nav" id="mainNav">
+      <a href="../../index.html#home" class="nav-link">Home</a>
       <a href="../../index.html#about" class="nav-link">About</a>
       <a href="../../index.html#domains" class="nav-link">Domains</a>
       <a href="../../index.html#events" class="nav-link">Events</a>
@@ -51,7 +48,6 @@
     </nav>
   </div>
 </header>
-
 <main>
   <section class="page-hero">
     <a href="#" id="backToDomain" class="back-link">← Back to App Dev</a>
@@ -59,26 +55,31 @@
     <h1 class="page-hero-title" id="topicTitle">Loading…</h1>
     <p class="page-hero-sub" id="topicIntro"></p>
   </section>
-
   <section class="section">
     <div class="section-inner">
       <article class="study-content" id="topicContent"></article>
     </div>
   </section>
 </main>
-
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
       <span class="bars bars--sm"></span>
       <p>ACM-W BPHC</p>
-      <p class="muted">Student chapter · BITS Pilani, Hyderabad Campus</p>
+      <span class="muted">Student chapter · BITS Pilani, Hyderabad Campus</span>
     </div>
+    <div class="footer-links">
+      <div>
+        <h4>Credits</h4>
+        <span class="footer-credit">Nitya Kapoor</span>
+        <span class="footer-credit">Sharmistha Khurana</span>
+        <span class="footer-credit">Shivani Neelamraju</span>
+        <span class="footer-credit">Yashika Shriramoj</span>
+      </div>
     </div>
   </div>
   <p class="footer-copy">© <span id="year"></span> ACM-W, BITS Pilani Hyderabad Campus. Built by the chapter, for the chapter.</p>
 </footer>
-
 <script src="../domain-page.js"></script>
 <script src="study_app_dev.js"></script>
 </body>
