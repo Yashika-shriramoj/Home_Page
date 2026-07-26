@@ -798,6 +798,12 @@ body.edit-mode .card-edit-controls{display:flex;}
 .back-link{display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:0.78rem; color:var(--muted); text-decoration:none; margin-bottom:18px;}
 .back-link:hover{color:var(--magenta);}
 
+/* Events and Fests pages: pull the calendar/upcoming block and the fest
+   cards up closer to their page heading — these two pages don't need the
+   generous default spacing meant for longer-form page intros. */
+#page-events .page-hero, #page-fests .page-hero{padding-bottom:12px;}
+#page-events .section, #page-fests .section{padding-top:16px;}
+
 /* ---------- home quick-links to other pages ---------- */
 .quicklinks-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:20px;}
 .quicklink-card{
