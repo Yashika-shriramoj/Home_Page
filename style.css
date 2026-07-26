@@ -682,7 +682,6 @@ html[data-theme="dark"] .fest-detail-tabs .pill:hover{
   background-color:#C6DBFF; border-color:#C6DBFF; color:#12327A;
 }
 html[data-theme="dark"] .fest-detail-tabs .pill.is-active{
-html[data-theme="dark"] .event-category-tabs .pill.is-active{
   background-color:#F8CBE4; border-color:#F8CBE4; color:#7A1652;
 }
 
@@ -902,6 +901,4 @@ body.edit-mode .card-edit-controls{display:flex;}
  ::-webkit-scrollbar-thumb:hover {
      background-color: rgba(127, 189, 220, 0.445);
      
-}
-
 }
