@@ -1,4 +1,4 @@
-/* ===================================================
+/* ==================================================
    ACM-W BPHC — single-page site behaviour
    All page content (events, fests, projects, testimonials,
    senate) is rendered directly in index.html. The Domains
