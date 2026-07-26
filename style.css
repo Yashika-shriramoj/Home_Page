@@ -1,8 +1,8 @@
-/* ====================================================
+/* =====================================================
    ACM-W BPHC — Design tokens
    Palette matched to the acm-w logo mark: blue and pink
    accents on a deep-navy + white base.
-   =================================================== */
+   ==================================================== */
 :root{
   --ink:        #12327A;
   --ink-soft:   #1B45A8;
@@ -514,17 +514,38 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 .fests-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:24px;}
 .fest-card{
   background:var(--navy-fixed); color:#fff; border-radius:var(--radius); padding:28px; position:relative; overflow:hidden;
+  transition:background 0.25s ease, color 0.25s ease;
 }
 .fest-card::before{content:''; position:absolute; top:0; right:0; width:120px; height:120px; background:linear-gradient(135deg,var(--magenta),var(--violet)); opacity:0.35; border-radius:0 0 0 120px;}
 .fest-card h3{font-size:1.3rem; margin-bottom:8px; position:relative;}
-.fest-card p{color:#E8B8CE; position:relative; font-size:0.9rem;}
-.fest-meta{font-family:var(--font-mono); font-size:0.72rem; color:var(--amber); position:relative; display:block; margin-top:14px;}
-.fest-card.fest-select{
+.fest-card p{color:#E8B8CE; position:relative; font-size:0.9rem; transition:color 0.25s ease;}
+.fest-meta{font-family:var(--font-mono); font-size:0.72rem; color:var(--amber); position:relative; display:block; margin-top:14px; transition:color 0.25s ease;}
+.fest-card.fest-select,
+.fest-card.event-card-select{
   border:none; width:100%; text-align:left; font:inherit; cursor:pointer;
-  transition:transform 0.25s ease, box-shadow 0.25s ease;
+  transition:transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
 }
-.fest-card.fest-select:hover, .fest-card.fest-select:focus-visible{
+.fest-card.fest-select:hover, .fest-card.fest-select:focus-visible,
+.fest-card.event-card-select:hover, .fest-card.event-card-select:focus-visible{
   transform:translateY(-4px); box-shadow:0 20px 40px var(--shadow);
+}
+/* Selectable fest/event cards flip from dark-navy (light mode) to a soft
+   pastel (dark mode) instead of staying permanently dark navy. */
+html[data-theme="dark"] .fest-card.fest-select,
+html[data-theme="dark"] .fest-card.event-card-select{
+  background:#DCE9FF; color:#12327A;
+}
+html[data-theme="dark"] .fest-card.fest-select::before,
+html[data-theme="dark"] .fest-card.event-card-select::before{
+  opacity:0.4;
+}
+html[data-theme="dark"] .fest-card.fest-select p,
+html[data-theme="dark"] .fest-card.event-card-select p{
+  color:#5B3A63;
+}
+html[data-theme="dark"] .fest-card.fest-select .fest-meta,
+html[data-theme="dark"] .fest-card.event-card-select .fest-meta{
+  color:#1B45A8;
 }
 .fest-detail{
   margin-top:32px; background:var(--surface); border:1px solid var(--line);
@@ -564,8 +585,13 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 }
 .img-slider-dot.is-active{background:var(--magenta); transform:scale(1.2);}
 
-/* ---------- events: category tabs (styled like the fest page pills) ---------- */
-.event-category-tabs{display:flex; gap:10px; flex-wrap:wrap; margin-top:44px; margin-bottom:20px;}
+/* ---------- events: category "tabs" — styled like the fest page's
+   selectable cards (dark navy, corner gradient blob) rather than pills.
+   Clicking one swaps which panel is shown below the grid. ---------- */
+.event-category-tabs{margin-top:44px; margin-bottom:24px;}
+.event-card-select.is-active{
+  box-shadow:0 0 0 2px var(--magenta), 0 20px 40px var(--shadow);
+}
 .event-tab-panel{
   background:var(--surface); border:1px solid var(--line); border-radius:12px;
   padding:20px;
@@ -636,31 +662,26 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 .dot-unread{background-color:#ef4444;}
 .dot-read{background-color:#22c55e;}
 
-/* ---------- fest tabs + events tabs: dark chips in light mode, pastel chips in dark mode ----------
-   These two tab groups (About/Gallery on the fest page, Internal Events/Workshops/Inductions on the
-   events page) get their own coloring rather than the generic .pill rule above, so switching to dark
-   mode doesn't leave them looking like dark-on-dark navy chips. */
-.fest-detail-tabs .pill,
-.event-category-tabs .pill{
+/* ---------- fest tabs: dark chips in light mode, pastel chips in dark mode ----------
+   The About/Gallery pill toggle on the fest page gets its own coloring rather than
+   the generic .pill rule above, so switching to dark mode doesn't leave it looking
+   like a dark-on-dark navy chip. */
+.fest-detail-tabs .pill{
   background-color:#12327A; border-color:#12327A; color:#fff;
 }
-.fest-detail-tabs .pill:hover,
-.event-category-tabs .pill:hover{
+.fest-detail-tabs .pill:hover{
   background-color:#1B45A8; border-color:#1B45A8; color:#fff;
 }
-.fest-detail-tabs .pill.is-active,
-.event-category-tabs .pill.is-active{
+.fest-detail-tabs .pill.is-active{
   background-color:var(--magenta); border-color:var(--magenta); color:#fff;
 }
-html[data-theme="dark"] .fest-detail-tabs .pill,
-html[data-theme="dark"] .event-category-tabs .pill{
+html[data-theme="dark"] .fest-detail-tabs .pill{
   background-color:#DCE9FF; border-color:#DCE9FF; color:#12327A;
 }
-html[data-theme="dark"] .fest-detail-tabs .pill:hover,
-html[data-theme="dark"] .event-category-tabs .pill:hover{
+html[data-theme="dark"] .fest-detail-tabs .pill:hover{
   background-color:#C6DBFF; border-color:#C6DBFF; color:#12327A;
 }
-html[data-theme="dark"] .fest-detail-tabs .pill.is-active,
+html[data-theme="dark"] .fest-detail-tabs .pill.is-active{
 html[data-theme="dark"] .event-category-tabs .pill.is-active{
   background-color:#F8CBE4; border-color:#F8CBE4; color:#7A1652;
 }
