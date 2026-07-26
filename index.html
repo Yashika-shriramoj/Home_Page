@@ -308,14 +308,19 @@
         </div>
 
         <div class="events-list">
-          <h3 class="list-heading">Upcoming</h3>
+          <h3 class="list-heading list-heading--upcoming">Upcoming</h3>
           <div id="eventsList"></div>
           <div id="dayDetail" class="day-detail" hidden></div>
         </div>
       </div>
 
-      <div class="event-category-block">
-        <h3 class="list-heading">Internal Events</h3>
+      <div class="event-category-tabs" id="eventCategoryTabs">
+        <button class="pill is-active" type="button" data-event-tab="internal">Internal Events</button>
+        <button class="pill" type="button" data-event-tab="workshops">Workshops</button>
+        <button class="pill" type="button" data-event-tab="inductions">Inductions</button>
+      </div>
+
+      <div class="event-tab-panel" data-panel="internal">
         <div class="event-item">
           <h4>Codeflix</h4>
           <p>Every semester, ACM-W BPHC brings you CodeFlix — an evening where you kick back with a movie while cracking coding problems on the side. No pressure, no deadlines to panic over — just good company, a good watch, and code running in the background.</p>
@@ -325,8 +330,7 @@
         </div>
       </div>
 
-      <div class="event-category-block">
-        <h3 class="list-heading">Workshops</h3>
+      <div class="event-tab-panel" data-panel="workshops" hidden>
         <div class="event-item">
           <h4>App Dev Workshop</h4>
           <p>Day and Date: Tuesday, 10th Feb 2026</p>
@@ -337,8 +341,7 @@
         </div>
       </div>
 
-      <div class="event-category-block">
-        <h3 class="list-heading">Inductions</h3>
+      <div class="event-tab-panel" data-panel="inductions" hidden>
         <p class="induction-note">Inductions are currently closed.</p>
       </div>
     </div>
