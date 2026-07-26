@@ -4,235 +4,805 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogs and articles | ACM-W BPHC</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fonts -->
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <!-- Custom Theme Configuration -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        themeNav: '#0f111a',       
-                        themeBody: '#353155',      
-                        themeCard: '#242842',      
-                        themeActive: '#a655f7',    
-                        textMuted: '#9ba1b4',      
-                        tagDark: '#17192b',        
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            background-color: #353155;
-            color: #ffffff;
+        /* =====================================================
+           ACM-W BPHC — Design tokens matched to friend's home page
+           ===================================================== */
+        :root{
+            --ink:        #12327A;
+            --ink-soft:   #1B45A8;
+            --paper:      #FFFFFF;
+            --paper-tint: #EAF3FF;
+            --surface:    #FFFFFF;
+            --header-bg:  rgba(251,249,255,0.9);
+            --magenta:    #FF4FA6;
+            --violet:     #1E5AFF;
+            --amber:      #4FC3F7;
+            --teal:       #0B3D91;
+            --muted:      #5B6B85;
+            --line:       #DCE7F5;
+            --line-dark:  rgba(255,255,255,0.14);
+            --shadow:     rgba(11,11,13,0.09);
+            --cube-blue:  #BFDBFF;
+            --cube-white: #F5F9FF;
+            --cube-pink:  #F8CBE4;
+            --grad-1:     #BFDBFF;
+            --grad-2:     #A9BFF5;
+            --grad-3:     #E3B8DC;
+            --grad-4:     #B3A8EC;
+
+            --navy-fixed:       #0A1730;
+            --navy-fixed-soft:  #142A4E;
+
+            --font-display: 'Space Grotesk', 'Poppins', sans-serif;
+            --font-accent: 'Fraunces', serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --radius: 14px;
+            --container: 1180px;
+        }
+
+        /* ---------- dark mode tokens (matched to friend's page) ---------- */
+        html[data-theme="dark"]{
+            --ink:        #F3F6FF;
+            --ink-soft:   #C9D6F5;
+            --paper:      #0A1730;
+            --paper-tint: rgba(255,255,255,0.06);
+            --surface:    #12275A;
+            --header-bg:  rgba(9,19,40,0.86);
+            --violet:     #6E93FF;
+            --teal:       #45D6C9;
+            --muted:      #93A3C6;
+            --line:       rgba(255,255,255,0.14);
+            --shadow:     rgba(0,0,0,0.35);
+            --grad-1:     #2A3F72;
+            --grad-2:     #3B3873;
+            --grad-3:     #5C2F55;
+            --grad-4:     #3A2F6E;
+        }
+
+        html{transition:background 0.25s ease;}
+        body{transition:background 0.25s ease, color 0.25s ease;}
+        
+        *{box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{
+            margin:0;
+            font-family:var(--font-body);
+            color:var(--ink);
+            background:var(--paper);
+            -webkit-font-smoothing:antialiased;
+        }
+
+        h1,h2,h3,h4{font-family:var(--font-display); margin:0; line-height:1.1; font-weight:600; letter-spacing:-0.01em;}
+        p{margin:0 0 1em; color:var(--muted); line-height:1.65;}
+        a{color:inherit;}
+        ul{margin:0; padding:0; list-style:none;}
+        button{font-family:inherit; cursor:pointer;}
+
+        /* Background Animated Gradient matching friend's hero/site background */
+        .site-bg{
+            position:fixed; inset:0;
+            z-index:-1;
+            pointer-events:none;
+            background:linear-gradient(120deg, var(--grad-1) 0%, var(--grad-2) 38%, var(--grad-3) 62%, var(--grad-4) 82%, var(--grad-1) 100%);
+            background-size:400% 400%;
+            animation:heroGradientFlow 24s ease-in-out infinite;
+        }
+        @keyframes heroGradientFlow{
+            0%{background-position:0% 50%;}
+            50%{background-position:100% 50%;}
+            100%{background-position:0% 50%;}
+        }
+
+        /* Navbar */
+        .site-header {
+            position: sticky; top: 0; z-index: 50;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+        .nav-wrap {
+            max-width: var(--container); margin: 0 auto; padding: 14px 24px;
+            display: flex; align-items: center; justify-content: space-between; gap: 24px;
+        }
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-right {
+            display: flex; align-items: center; gap: 20px;
+        }
+        .main-nav {
+            display: flex; align-items: center; gap: 6px; list-style: none;
+        }
+        .nav-link {
+            font-size: 0.92rem; font-weight: 500; text-decoration: none; color: var(--ink-soft);
+            padding: 8px 12px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px;
+            background: none; border: none; transition: background 0.15s ease, color 0.15s ease;
+            font-family: var(--font-body);
+        }
+        .nav-link:hover, .nav-link.is-active {
+            background: var(--paper-tint); color: var(--magenta);
+        }
+
+        /* Theme Toggle matched to friend's button */
+        .theme-toggle{
+            position:relative; display:inline-flex; align-items:center;
+            width:52px; height:28px; padding:3px; border-radius:999px; flex-shrink:0;
+            border:1px solid var(--line); background:var(--paper-tint);
+            transition:background 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+        }
+        .theme-toggle .toggle-knob{
+            width:20px; height:20px; border-radius:50%; background:var(--ink);
+            display:flex; align-items:center; justify-content:center; color:var(--paper);
+            transform:translateX(0); transition:transform 0.25s cubic-bezier(.22,1,.36,1), background 0.2s ease;
+        }
+        html[data-theme="dark"] .theme-toggle .toggle-knob{transform:translateX(24px);}
+        .theme-toggle svg{width:13px; height:13px;}
+        .theme-toggle .icon-moon{display:none;}
+        html[data-theme="dark"] .theme-toggle .icon-sun{display:none;}
+        html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
+
+        /* Signature bar motif matching the reference image */
+        .bars { 
+            display: inline-flex; 
+            height: 8px; 
+            width: 32px; 
+            border-radius: 3px; 
+            overflow: hidden; 
+            flex-shrink: 0;
+            background: linear-gradient(90deg, var(--magenta) 0 25%, var(--violet) 25% 50%, var(--amber) 50% 75%, var(--teal) 75% 100%);
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        /* Section header style with inline motif + mono font */
+        .section-header-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .section-title-mono {
+            font-family: var(--font-mono);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--ink);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin: 0;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Spotlight Section - Static / No Hover Effects */
+        .spotlight-card {
+            background-color: var(--surface);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 12px 30px var(--shadow);
+            margin-bottom: 40px;
+            border: 1px solid var(--line);
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+        }
+
+        .spotlight-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .spotlight-image-container {
+            width: 100%;
+            min-height: 300px;
+            background-color: var(--paper-tint);
             position: relative;
-            z-index: 0;
+            overflow: hidden;
         }
-        .filter-btn, .status-dot {
-            transition: all 0.3s ease-in-out;
+
+        .spotlight-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        .js-tilt-glare {
-            border-radius: 1rem;
+
+        .tag {
+            display: inline-block;
+            background: var(--paper-tint);
+            color: var(--violet);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+
+        .spotlight-card h1 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            color: var(--ink);
+            font-family: var(--font-display);
+        }
+
+        .spotlight-card p {
+            font-family: var(--font-body);
+            font-size: 1.02rem;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--magenta), var(--amber));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+            font-family: var(--font-mono);
+        }
+
+        .author-details {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .author-details span {
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .author-details .name {
+            font-weight: 600;
+            color: var(--ink);
+            font-family: var(--font-body);
+            position: relative;
+            display: inline-block;
+        }
+
+        .author-details .name::after {
+            content: ' ▼';
+            font-size: 0.6rem;
+            color: var(--magenta);
+        }
+
+        .author-details .date {
+            color: var(--muted);
+            font-size: 0.78rem;
+            font-family: var(--font-mono);
+        }
+
+        /* Author Bio Tooltip / Popup Card */
+        .author-bio-popup {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 0;
+            width: 280px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 12px 30px var(--shadow);
+            z-index: 20;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(6px);
+            transition: all 0.25s cubic-bezier(.22,1,.36,1);
+            pointer-events: none;
+        }
+
+        .author-details:hover .author-bio-popup,
+        .author-details:focus-within .author-bio-popup {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .author-bio-popup h4 {
+            font-size: 0.95rem;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .author-bio-popup p {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Filters & Sort Dropdown */
+        .filter-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .filter-left-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-pills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            background-color: var(--surface);
+            border: 1px solid var(--line);
+            padding: 9px 18px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 0.78rem;
+            color: var(--ink-soft);
+            font-weight: 500;
+            font-family: var(--font-mono);
+            transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+        }
+
+        .pill.active {
+            background-color: var(--ink);
+            color: var(--paper);
+            border-color: var(--ink);
+        }
+
+        /* Redesigned Sleek Pill-Style Sort Dropdown */
+        .sort-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: var(--surface);
+            border: 1px solid var(--line);
+            padding: 9px 36px 9px 18px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 0.78rem;
+            color: var(--ink-soft);
+            font-weight: 500;
+            font-family: var(--font-mono);
+            outline: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23FF4FA6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            box-shadow: 0 2px 6px var(--shadow);
+            transition: all 0.25s cubic-bezier(.22,1,.36,1);
+        }
+
+        .sort-select:hover, .sort-select:focus {
+            border-color: var(--magenta);
+            color: var(--magenta);
+            box-shadow: 0 4px 12px rgba(255, 79, 166, 0.15);
+            transform: translateY(-1px);
+        }
+
+        /* Top Stories Grid */
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        /* Basic Story / Blog Cards */
+        .story-card {
+            background-color: var(--surface);
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 12px 30px var(--shadow);
+            border: 1px solid var(--line);
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-image-container {
+            width: 100%;
+            height: 180px;
+            background-color: var(--paper-tint);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: var(--surface);
+            border-bottom-left-radius: var(--radius);
+            border-bottom-right-radius: var(--radius);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .category-label {
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: var(--teal);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-family: var(--font-mono);
+        }
+
+        .badge {
+            font-size: 0.65rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-family: var(--font-mono);
+        }
+
+        .badge-member { background: var(--paper-tint); color: var(--violet); }
+        .badge-news { background: var(--paper-tint); color: var(--teal); }
+        .badge-stem { background: var(--paper-tint); color: var(--magenta); }
+
+        .story-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            line-height: 1.1;
+            color: var(--ink);
+            font-family: var(--font-display);
+        }
+
+        .story-card p {
+            font-size: 0.88rem;
+            font-family: var(--font-body);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--line);
+            padding-top: 16px;
+            margin-top: auto;
+        }
+
+        .read-more {
+            text-decoration: none;
+            color: var(--magenta);
+            font-weight: 600;
+            font-size: 0.85rem;
+            font-family: var(--font-mono);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .read-time {
+            font-size: 0.72rem;
+            color: var(--muted);
+            font-family: var(--font-mono);
+        }
+
+        /* Footer matching friend's layout and style precisely */
+        .site-footer {
+            background: var(--navy-fixed);
+            color: #F0D6E4;
+            padding: 64px 24px 30px;
+        }
+
+        .footer-inner {
+            max-width: var(--container);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 48px;
+        }
+
+        .footer-brand h3 {
+            color: #fff;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            margin-top: 4px;
+        }
+
+        .footer-brand p {
+            color: #F0D6E4;
+            margin: 12px 0 2px;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+        }
+
+        .footer-brand .muted {
+            color: #B08094;
+            font-size: 0.82rem;
+            font-family: var(--font-body);
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 360px;
+        }
+
+        .footer-links h4 {
+            color: #fff;
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #D9A9C2;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-family: var(--font-body);
+        }
+
+        .footer-links a:hover {
+            color: var(--amber);
+        }
+
+        .footer-copy {
+            text-align: center;
+            color: #D9A9C2;
+            font-size: 0.78rem;
+            margin: 50px 0 0;
+            font-family: var(--font-body);
+        }
+
+        @media (max-width: 900px) {
+            .spotlight-card {
+                grid-template-columns: 1fr;
+            }
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .footer-links {
+                grid-template-columns: 1fr 1fr;
+            }
         }
     </style>
 </head>
-<body class="font-sans antialiased overflow-x-hidden flex flex-col min-h-screen">
+<body>
 
-    <!-- Animated Ambient Background Orbs -->
-    <div class="fixed top-20 left-10 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] pointer-events-none -z-10"></div>
-    <div class="fixed top-1/3 right-10 w-[30rem] h-[30rem] bg-cyan-500/10 rounded-full blur-[150px] pointer-events-none -z-10"></div>
+    <div class="site-bg"></div>
 
-    <!-- Navigation Bar -->
-    <nav class="bg-themeNav/90 backdrop-blur-md px-8 py-5 flex justify-between items-center sticky top-0 z-50 border-b border-gray-800/50">
-        <div class="flex items-center gap-6">
-            <a href="index.html" class="text-xl font-bold tracking-wide">ACM-W BPHC</a>
-            <div class="w-12 h-6 bg-gray-600 rounded-full flex items-center px-1 cursor-pointer">
-                <div class="w-4 h-4 bg-white rounded-full flex items-center justify-center translate-x-6 shadow-sm">
-                    <svg class="w-3 h-3 text-gray-900" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                </div>
+    <header class="site-header">
+        <div class="nav-wrap">
+            <div class="brand-container">
+                <a href="index.html" class="brand">ACM-W BPHC</a>
+                <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <span class="toggle-knob">
+                        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    </span>
+                </button>
+            </div>
+            <div class="nav-right">
+                <nav>
+                    <ul class="main-nav">
+                        <li><a href="index.html" class="nav-link">About</a></li>
+                        <li><a href="#" class="nav-link">Domains</a></li>
+                        <li><a href="#" class="nav-link">Events</a></li>
+                        <li><a href="#" class="nav-link">Fests</a></li>
+                        <li><a href="blogs.html" class="nav-link is-active">Projects & Blogs</a></li>
+                        <li><a href="#" class="nav-link">Contact Us</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
-        <ul class="flex space-x-8 text-sm font-medium text-gray-200">
-            <li><a href="#" class="hover:text-white transition">About</a></li>
-            <li class="flex items-center gap-1 cursor-pointer hover:text-white transition">Domains <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></li>
-            <li><a href="#" class="hover:text-white transition">Events</a></li>
-            <li><a href="#" class="hover:text-white transition">Fests</a></li>
-            <li><a href="#" class="text-white font-bold">Blogs and articles</a></li>
-            <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
-        </ul>
-    </nav>
+    </header>
 
-    <!-- Featured Article Hero Banner (Now at the top) -->
-    <section class="max-w-7xl mx-auto px-10 pt-16 mb-12 w-full">
-        <div class="relative w-full h-[400px] md:h-[450px] rounded-3xl overflow-hidden shadow-2xl border border-gray-700/50 group cursor-pointer bg-themeCard" onclick="window.location.href='article.html'">
-            <img src="assets/featured-prism.jpg" alt="Featured Post" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80">
-            <div class="absolute inset-0 bg-gradient-to-r from-themeNav via-themeNav/90 to-transparent md:to-themeNav/40 pointer-events-none"></div>
-            <div class="relative z-10 p-8 md:p-14 flex flex-col justify-end md:justify-center h-full max-w-3xl">
-                <div class="mb-5"><span class="bg-tagDark/80 backdrop-blur-sm px-3 py-1 rounded text-[10px] tracking-widest uppercase font-bold text-cyan-400 shadow-sm border border-cyan-500/20">Spotlight</span></div>
-                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">The Future of Tech: Key Leadership Strategies for 2026</h2>
-                <p class="text-[15px] md:text-[17px] text-gray-300 leading-relaxed mb-10 max-w-2xl drop-shadow-sm">Examining the major trends and strategies shaping the technology landscape this year, from deep-learning transformations to building inclusive engineering pipelines within our chapter.</p>
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-cyan-400 p-[2px] shadow-lg"><div class="w-full h-full bg-themeNav rounded-full flex items-center justify-center text-[10px] font-bold text-white tracking-wider">AW</div></div>
-                    <div class="flex flex-col"><span class="text-sm font-bold text-white">ACM-W Editorial Board</span><span class="text-[11px] text-gray-400 font-mono tracking-wider mt-0.5">JULY 20, 2026</span></div>
+    <div class="container">
+
+        <div class="spotlight-card">
+            <div class="spotlight-content">
+                <span class="tag">Spotlight</span>
+                <h1>The Future of Tech: Key Leadership Strategies for 2026</h1>
+                <p>Examining the major trends and strategies shaping the technology landscape this year, from deep-learning transformations to building inclusive engineering pipelines within our chapter.</p>
+                <div class="author-info">
+                    <div class="avatar">AW</div>
+                    <div class="author-details">
+                        <span class="name">ACM-W Editorial Board</span>
+                        <span class="date">July 20, 2026</span>
+                        <div class="author-bio-popup">
+                            <h4>ACM-W Editorial Board</h4>
+                            <p>Curating tech insights, devlogs, and chapter highlights to empower women in computing at BITS Pilani, Hyderabad Campus.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="spotlight-image-container">
+                <img src="path_to_spotlight_image.jpg" alt="Spotlight Image">
+            </div>
         </div>
-    </section>
 
-    <!-- Filter Tags & Read Status Legend -->
-    <div class="max-w-7xl mx-auto px-10 mb-10 w-full">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div class="flex flex-wrap gap-4" id="filter-container">
-                <button onclick="filterArticles('all')" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-themeActive text-white shadow-md border border-purple-400/30">All</button>
-                <button onclick="filterArticles('member')" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-themeCard/80 backdrop-blur-sm text-gray-300 border border-gray-700/50 hover:bg-gray-700 hover:text-white">Member Posts</button>
-                <button onclick="filterArticles('news')" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-themeCard/80 backdrop-blur-sm text-gray-300 border border-gray-700/50 hover:bg-gray-700 hover:text-white">News Explainers</button>
-                <button onclick="filterArticles('stem')" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold bg-themeCard/80 backdrop-blur-sm text-gray-300 border border-gray-700/50 hover:bg-gray-700 hover:text-white">STEM Highlights</button>
+        <div class="filter-container">
+            <div class="filter-left-group">
+                <div class="filter-pills">
+                    <button class="pill active">All</button>
+                    <button class="pill">Member Posts</button>
+                    <button class="pill">News Explainers</button>
+                    <button class="pill">STEM Highlights</button>
+                </div>
+                <select class="sort-select" aria-label="Sort or filter by read time">
+                    <option value="recent">Most Recent</option>
+                    <option value="quick">Quick Reads (&lt; 5 min)</option>
+                    <option value="long">Deep Dives (&gt; 10 min)</option>
+                </select>
             </div>
-            <div class="flex items-center gap-5 text-xs font-mono text-gray-400 bg-themeCard/60 backdrop-blur-md px-4 py-2 rounded-full border border-gray-700/50 shadow-inner">
-                <span class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></div> Unread</span>
-                <span class="flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.8)]"></div> Read</span>
+        </div>
+
+        <div class="section-header-row">
+            <div class="bars"></div>
+            <h2 class="section-title-mono">Top Stories</h2>
+        </div>
+        
+        <div class="stories-grid">
+            
+            <div class="story-card" data-read-time="12">
+                <div class="card-image-container">
+                    <img src="path_to_card1_image.jpg" alt="Hardware Warning System">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-top">
+                            <span class="category-label">Prism</span>
+                            <span class="badge badge-member">Member Post</span>
+                        </div>
+                        <h3>My Journey Building a Multi-Sensor Hardware Warning System</h3>
+                        <p>A step-by-step devlog detailing the collaborative design and debugging process of our recent induction task.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                        <span class="read-time">12 MIN READ</span>
+                    </div>
+                </div>
             </div>
+
+            <div class="story-card" data-read-time="9">
+                <div class="card-image-container">
+                    <img src="path_to_card2_image.jpg" alt="Quantum Algorithms">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-top">
+                            <span class="category-label">Algorithms</span>
+                            <span class="badge badge-news">News Explainer</span>
+                        </div>
+                        <h3>Demystifying the Latest Breakthroughs in Quantum Algorithms</h3>
+                        <p>Breaking down recent industry announcements regarding qubit stability and dual-control Toffoli gate execution.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                        <span class="read-time">9 MIN READ</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card" data-read-time="4">
+                <div class="card-image-container">
+                    <img src="path_to_card3_image.jpg" alt="Pioneers of Code">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-top">
+                            <span class="category-label">Diversity</span>
+                            <span class="badge badge-stem">STEM Highlight</span>
+                        </div>
+                        <h3>Pioneers of Code: Celebrating Margaret Hamilton and Grace Hopper</h3>
+                        <p>A historical deep-dive into the foundational engineering contributions made by women in early computational science.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                        <span class="read-time">4 MIN READ</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- Blogs Grid -->
-    <main class="max-w-7xl mx-auto px-10 pb-24 w-full flex-1">
-        <div class="mb-8 border-b border-gray-700/50 pb-4">
-            <h3 class="text-sm font-bold tracking-[0.15em] text-gray-400 uppercase">Top Stories</h3>
-        </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-grid">
-            <article data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.15" class="blog-card flex flex-col bg-themeCard/90 backdrop-blur-sm border border-gray-700/50 shadow-xl rounded-2xl overflow-hidden cursor-pointer" data-category="member">
-                <div class="h-56 bg-[#2c314f] relative"><img src="assets/featured-prism.jpg" alt="Prism" class="w-full h-full object-cover opacity-60"><div class="absolute top-4 left-4 bg-tagDark/80 backdrop-blur-sm px-3 py-1 rounded text-[10px] tracking-widest uppercase font-bold text-purple-400 shadow-sm border border-purple-500/20">Member Post</div></div>
-                <div class="p-8 flex flex-col flex-1 justify-between">
-                    <div>
-                        <div class="flex items-start justify-between gap-4 mb-4">
-                            <h2 class="text-2xl font-bold text-white leading-snug">My Journey Building a Multi-Sensor Hardware Warning System</h2>
-                            <span id="status-post-1" class="status-dot flex-shrink-0 w-3 h-3 rounded-full mt-1.5 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]" title="Unread"></span>
-                        </div>
-                        <p class="text-[15px] text-textMuted leading-relaxed mb-8">A step-by-step devlog detailing the collaborative design and debugging process of our recent induction task.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-auto z-10">
-                        <a href="article-1.html" onclick="markAsRead('post-1')" class="text-[15px] font-bold text-white hover:text-cyan-300 transition flex items-center gap-1">Read More &rarr;</a>
-                        <span class="text-xs font-mono text-textMuted uppercase tracking-wider font-semibold">12 MIN READ</span>
-                    </div>
-                </div>
-            </article>
-            <article data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.15" class="blog-card flex flex-col bg-themeCard/90 backdrop-blur-sm border border-gray-700/50 shadow-xl rounded-2xl overflow-hidden cursor-pointer" data-category="news">
-                <div class="h-56 bg-[#2c314f] relative"><img src="assets/blog-1-algorithms.jpg" alt="Algorithms" class="w-full h-full object-cover opacity-60"><div class="absolute top-4 left-4 bg-tagDark/80 backdrop-blur-sm px-3 py-1 rounded text-[10px] tracking-widest uppercase font-bold text-cyan-400 shadow-sm border border-cyan-500/20">News Explainer</div></div>
-                <div class="p-8 flex flex-col flex-1 justify-between">
-                    <div>
-                        <div class="flex items-start justify-between gap-4 mb-4">
-                            <h2 class="text-2xl font-bold text-white leading-snug">Demystifying the Latest Breakthroughs in Quantum Algorithms</h2>
-                            <span id="status-post-2" class="status-dot flex-shrink-0 w-3 h-3 rounded-full mt-1.5 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]" title="Unread"></span>
-                        </div>
-                        <p class="text-[15px] text-textMuted leading-relaxed mb-8">Breaking down recent industry announcements regarding qubit stability and dual-control Toffoli gate execution.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-auto z-10">
-                        <a href="article.html" onclick="markAsRead('post-2')" class="text-[15px] font-bold text-white hover:text-cyan-300 transition flex items-center gap-1">Read More &rarr;</a>
-                        <span class="text-xs font-mono text-textMuted uppercase tracking-wider font-semibold">9 MIN READ</span>
-                    </div>
-                </div>
-            </article>
-            <article data-tilt data-tilt-max="4" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.15" class="blog-card flex flex-col bg-themeCard/90 backdrop-blur-sm border border-gray-700/50 shadow-xl rounded-2xl overflow-hidden cursor-pointer" data-category="stem">
-                <div class="h-56 bg-[#2c314f] relative"><img src="assets/blog-2-diversity.jpg" alt="Diversity" class="w-full h-full object-cover opacity-60"><div class="absolute top-4 left-4 bg-tagDark/80 backdrop-blur-sm px-3 py-1 rounded text-[10px] tracking-widest uppercase font-bold text-pink-500 shadow-sm border border-pink-500/20">STEM Highlight</div></div>
-                <div class="p-8 flex flex-col flex-1 justify-between">
-                    <div>
-                        <div class="flex items-start justify-between gap-4 mb-4">
-                            <h2 class="text-2xl font-bold text-white leading-snug">Pioneers of Code: Celebrating Margaret Hamilton and Grace Hopper</h2>
-                            <span id="status-post-3" class="status-dot flex-shrink-0 w-3 h-3 rounded-full mt-1.5 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]" title="Unread"></span>
-                        </div>
-                        <p class="text-[15px] text-textMuted leading-relaxed mb-8">A historical deep-dive into the foundational engineering contributions made by women in early computational science.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-auto z-10">
-                        <a href="article-3.html" onclick="markAsRead('post-3')" class="text-[15px] font-bold text-white hover:text-cyan-300 transition flex items-center gap-1">Read More &rarr;</a>
-                        <span class="text-xs font-mono text-textMuted uppercase tracking-wider font-semibold">7 MIN READ</span>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-themeNav/90 backdrop-blur-md pt-16 pb-8 px-10 mt-auto w-full border-t border-gray-800/50 relative z-10">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-4 gap-12 mb-16">
-                <div class="md:col-span-2 space-y-4">
-                    <div class="w-12 h-1.5 bg-gradient-to-r from-pink-500 to-cyan-400 rounded-full mb-6"></div>
-                    <h3 class="text-2xl font-bold text-white">ACM-W BPHC</h3>
-                    <p class="text-purple-300 text-[15px]">Student chapter · BITS Pilani, Hyderabad Campus</p>
-                </div>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="bars"></div>
+                <h3>ACM-W BPHC</h3>
+                <p>Student chapter - BITS Pilani, Hyderabad Campus</p>
+                <span class="muted">Empowering women in technology</span>
+            </div>
+            <div class="footer-links">
                 <div>
-                    <h4 class="text-white font-bold text-sm tracking-widest uppercase mb-6 drop-shadow-md">Connect</h4>
-                    <ul class="space-y-4 text-purple-300 text-[15px]">
-                        <li><a href="#" class="hover:text-white transition">Email us</a></li>
-                        <li><a href="#" class="hover:text-white transition">Instagram</a></li>
-                        <li><a href="#" class="hover:text-white transition">LinkedIn</a></li>
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="#">Email us</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">LinkedIn</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-bold text-sm tracking-widest uppercase mb-6 drop-shadow-md">Contact Us</h4>
-                    <a href="#" class="text-purple-300 text-[15px] hover:text-white transition">Get in touch &rarr;</a>
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><a href="#">Get in touch &rarr;</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="text-center text-[#475569] text-xs pt-8 border-t border-gray-800/50">
-                <p>&copy; 2026 ACM-W, BITS Pilani Hyderabad Campus. Built by the chapter, for the chapter.</p>
-            </div>
+        </div>
+        <div class="footer-copy">
+            <p>&copy; 2026 ACM-W, BITS Pilani Hyderabad Campus. Built by the chapter, for the chapter.</p>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const readArticles = JSON.parse(localStorage.getItem('acmw_read_articles')) || [];
-            readArticles.forEach(id => {
-                const statusDot = document.getElementById('status-' + id);
-                if(statusDot) {
-                    statusDot.classList.remove('bg-red-500', 'shadow-[0_0_8px_rgba(239,68,68,0.8)]');
-                    statusDot.classList.add('bg-green-400', 'shadow-[0_0_8px_rgba(74,222,128,0.8)]');
-                    statusDot.title = "Read";
-                }
-            });
-        });
-        function markAsRead(id) {
-            let readArticles = JSON.parse(localStorage.getItem('acmw_read_articles')) || [];
-            if (!readArticles.includes(id)) {
-                readArticles.push(id);
-                localStorage.setItem('acmw_read_articles', JSON.stringify(readArticles));
-                const statusDot = document.getElementById('status-' + id);
-                if(statusDot) {
-                    statusDot.classList.remove('bg-red-500', 'shadow-[0_0_8px_rgba(239,68,68,0.8)]');
-                    statusDot.classList.add('bg-green-400', 'shadow-[0_0_8px_rgba(74,222,128,0.8)]');
-                    statusDot.title = "Read";
-                }
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+            } else {
+                html.setAttribute('data-theme', 'dark');
             }
-        }
-        function filterArticles(category) {
-            const cards = document.querySelectorAll('.blog-card');
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('bg-themeActive', 'text-white', 'shadow-md', 'border-purple-400/30');
-                btn.classList.add('bg-themeCard/80', 'text-gray-300', 'border-gray-700/50');
-            });
-            event.currentTarget.classList.remove('bg-themeCard/80', 'text-gray-300', 'border-gray-700/50');
-            event.currentTarget.classList.add('bg-themeActive', 'text-white', 'shadow-md', 'border-purple-400/30');
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
         }
     </script>
 </body>
