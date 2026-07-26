@@ -32,6 +32,22 @@ function showPage(id, anchor){
     const el = document.getElementById(anchor);
     if(el) requestAnimationFrame(() => el.scrollIntoView({behavior:"smooth", block:"start"}));
   }
+  if(id === "about") replayAboutAnimations();
+}
+
+/* Re-plays the fade/slide-in entrance for every animated element on the
+   About page each time it's opened (rather than only the first time it
+   scrolls into view), so the section animations feel alive on every visit. */
+function replayAboutAnimations(){
+  const aboutPage = document.getElementById("page-about");
+  if(!aboutPage) return;
+  const targets = aboutPage.querySelectorAll(".reveal, .page-hero .eyebrow, .page-hero-title, .page-hero-sub");
+  targets.forEach(el => el.classList.remove("is-visible"));
+  // force a reflow so the browser registers the class removal before we re-add it
+  void aboutPage.offsetWidth;
+  requestAnimationFrame(() => {
+    targets.forEach(el => el.classList.add("is-visible"));
+  });
 }
 
 document.addEventListener("click", (e) => {
@@ -150,7 +166,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
    everything else reveals once and stays put.
    --------------------------------------------------- */
 const revealOnceTargets = document.querySelectorAll(
-  ".section-title, .page-hero-title, .story-card, .fest-card, .spotlight-card, .calendar-card, .about-lede, .about"
+  ".section-title, .page-hero-title, .story-card, .fest-card, .spotlight-card, .calendar-card, .about-lede, .about, #page-about .page-hero .eyebrow, #page-about .page-hero-sub"
 );
 const revealReplayTargets = document.querySelectorAll(
   ".testimonial-card, .senate-card, .event-item, .quicklink-card, .flip-card"
@@ -276,6 +292,23 @@ function renderUpcomingEvents(){
 renderUpcomingEvents();
 
 /* ---------------------------------------------------
+   4b. EVENTS PAGE — Internal Events / Workshops / Inductions
+   tab bar (styled and behaving like the fest page pills):
+   clicking a tab swaps which panel is shown below it.
+   --------------------------------------------------- */
+const eventCategoryTabsEl = document.getElementById("eventCategoryTabs");
+if(eventCategoryTabsEl){
+  const eventTabButtons = eventCategoryTabsEl.querySelectorAll("[data-event-tab]");
+  const eventTabPanels = document.querySelectorAll(".event-tab-panel");
+  eventTabButtons.forEach(tabBtn => {
+    tabBtn.addEventListener("click", () => {
+      eventTabButtons.forEach(b => b.classList.toggle("is-active", b === tabBtn));
+      eventTabPanels.forEach(p => { p.hidden = p.dataset.panel !== tabBtn.dataset.eventTab; });
+    });
+  });
+}
+
+/* ---------------------------------------------------
    5. PROJECTS & BLOGS — pill filter + read-time sort +
    mark-as-read on click
    --------------------------------------------------- */
@@ -359,8 +392,14 @@ const galleryData = {
   ]
 };
 
+const AUTOPLAY_DELAY_MS = 4500;
+
 function buildImageSlider(container, images){
   if(!container || !images || !images.length) return;
+  // clear any autoplay timer left over from a previous render of this container
+  // (e.g. switching between fests re-fills the same gallery slot)
+  if(container._autoplayTimer) clearInterval(container._autoplayTimer);
+
   let idx = 0;
   container.innerHTML = `
     <div class="img-slider-viewport">
@@ -384,9 +423,28 @@ function buildImageSlider(container, images){
   }
   const prevBtn = container.querySelector(".img-slider-btn.prev");
   const nextBtn = container.querySelector(".img-slider-btn.next");
-  if(prevBtn) prevBtn.addEventListener("click", () => goTo(idx - 1));
-  if(nextBtn) nextBtn.addEventListener("click", () => goTo(idx + 1));
-  dots.forEach(d => d.addEventListener("click", () => goTo(Number(d.dataset.idx))));
+  if(prevBtn) prevBtn.addEventListener("click", () => { goTo(idx - 1); restartAutoplay(); });
+  if(nextBtn) nextBtn.addEventListener("click", () => { goTo(idx + 1); restartAutoplay(); });
+  dots.forEach(d => d.addEventListener("click", () => { goTo(Number(d.dataset.idx)); restartAutoplay(); }));
+
+  // auto-advance on a timer; pause while the user is hovering/focused on
+  // the gallery so it doesn't move while they're looking at a photo
+  function startAutoplay(){
+    if(images.length < 2) return;
+    container._autoplayTimer = setInterval(() => goTo(idx + 1), AUTOPLAY_DELAY_MS);
+  }
+  function stopAutoplay(){
+    if(container._autoplayTimer){ clearInterval(container._autoplayTimer); container._autoplayTimer = null; }
+  }
+  function restartAutoplay(){
+    stopAutoplay();
+    startAutoplay();
+  }
+  container.addEventListener("mouseenter", stopAutoplay);
+  container.addEventListener("mouseleave", startAutoplay);
+  container.addEventListener("focusin", stopAutoplay);
+  container.addEventListener("focusout", startAutoplay);
+  startAutoplay();
 }
 
 buildImageSlider(document.getElementById("galleryAppDev"), galleryData.appdev);
