@@ -373,8 +373,9 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 .about{
   background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
   box-shadow:0 8px 20px var(--shadow); overflow:hidden;
+  transition:transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease, border-color 0.3s ease;
 }
-.about:hover{border-color:var(--magenta); box-shadow:0 16px 34px var(--shadow);}
+.about:hover{border-color:var(--magenta); box-shadow:0 16px 34px var(--shadow); transform:translateY(-4px);}
 .about-inner{
   display:flex; align-items:center; justify-content:space-between; gap:12px;
   padding:20px 26px; cursor:pointer; font-family:var(--font-display); font-weight:600;
@@ -388,6 +389,33 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 .about-inside{max-height:0; overflow:hidden; transition:max-height 0.35s ease;}
 .about-inside p{color:var(--muted); font-size:0.92rem; margin:0; padding:0 26px 26px;}
 .about-inside.open{max-height:600px; overflow-y:auto;}
+
+/* ---------- about page: section entrance animations ---------- */
+/* .reveal already fades+lifts each section in on scroll (see script.js);
+   this adds a touch of extra motion — a subtle scale — specifically for
+   the about page's hero copy, lede and accordion cards, and lets those
+   replay every time the About page is opened (handled in script.js). */
+#page-about .page-hero .eyebrow,
+#page-about .page-hero-title,
+#page-about .page-hero-sub{
+  opacity:0; transform:translateY(18px);
+  transition:opacity 0.6s ease, transform 0.6s cubic-bezier(.22,1,.36,1);
+}
+#page-about .page-hero .eyebrow.is-visible,
+#page-about .page-hero-title.is-visible,
+#page-about .page-hero-sub.is-visible{
+  opacity:1; transform:translateY(0);
+}
+#page-about .page-hero-title{transition-delay:0.08s;}
+#page-about .page-hero-sub{transition-delay:0.16s;}
+#page-about .about-lede.reveal,
+#page-about .about.reveal{
+  transform:translateY(28px) scale(0.98);
+}
+#page-about .about-lede.reveal.is-visible,
+#page-about .about.reveal.is-visible{
+  transform:translateY(0) scale(1);
+}
 
 
 /* ---------- domains ---------- */
@@ -448,6 +476,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 .cal-day:not(.is-today):hover{background:var(--paper-tint);}
 .cal-hint{font-size:0.78rem; margin:14px 0 0;}
 .list-heading{font-size:1.05rem; margin-bottom:16px;}
+.list-heading--upcoming{font-size:1.6rem; margin-bottom:20px;}
 .event-card{
   display:flex; gap:16px; padding:18px; margin-bottom:14px; background:var(--surface); border:1px solid var(--line);
   border-radius:var(--radius); box-shadow:0 8px 20px var(--shadow);
@@ -514,20 +543,20 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 
 /* ---------- sliding image gallery (events + fests) ---------- */
 .img-slider{position:relative; margin-top:16px; user-select:none; max-width:420px; margin-left:auto; margin-right:auto;}
-.img-slider-viewport{overflow:hidden; border-radius:12px; border:1px solid var(--line);}
+.img-slider-viewport{overflow:hidden; border-radius:12px; border:1px solid var(--line); background:transparent;}
 .img-slider-track{display:flex; transition:transform 0.45s cubic-bezier(.4,0,.2,1);}
-.img-slide{flex:0 0 100%; aspect-ratio:16/10; background:var(--paper-tint); display:flex; align-items:center; justify-content:center;}
+.img-slide{flex:0 0 100%; aspect-ratio:16/10; background:transparent; display:flex; align-items:center; justify-content:center;}
 .img-slide img{width:100%; height:100%; object-fit:contain; display:block;}
 .img-slider-btn{
   position:absolute; top:50%; transform:translateY(-50%); z-index:2;
-  width:36px; height:36px; border-radius:50%; border:none; cursor:pointer;
-  background:rgba(20,20,20,0.5); color:#fff; font-size:1.1rem; line-height:1;
+  width:30px; height:30px; border-radius:50%; border:none; cursor:pointer;
+  background:rgba(20,20,20,0.5); color:#fff; font-size:1rem; line-height:1;
   display:flex; align-items:center; justify-content:center;
   transition:background 0.2s ease;
 }
 .img-slider-btn:hover{background:rgba(20,20,20,0.75);}
-.img-slider-btn.prev{left:10px;}
-.img-slider-btn.next{right:10px;}
+.img-slider-btn.prev{left:4px;}
+.img-slider-btn.next{right:4px;}
 .img-slider-dots{display:flex; justify-content:center; gap:8px; margin-top:12px;}
 .img-slider-dot{
   width:8px; height:8px; padding:0; border-radius:50%; border:none;
@@ -535,15 +564,15 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 }
 .img-slider-dot.is-active{background:var(--magenta); transform:scale(1.2);}
 
-/* ---------- events: category sections ---------- */
-.event-category-block{margin-top:40px;}
-.event-item{
+/* ---------- events: category tabs (styled like the fest page pills) ---------- */
+.event-category-tabs{display:flex; gap:10px; flex-wrap:wrap; margin-top:44px; margin-bottom:20px;}
+.event-tab-panel{
   background:var(--surface); border:1px solid var(--line); border-radius:12px;
-  padding:20px; margin-top:12px;
+  padding:20px;
 }
 .event-item h4{font-size:1.05rem; margin-bottom:6px;}
 .event-item p{font-size:0.88rem; color:var(--muted); margin:0;}
-.induction-note{font-family:var(--font-mono); font-size:0.9rem; color:var(--muted); margin-top:12px;}
+.induction-note{font-family:var(--font-mono); font-size:0.9rem; color:var(--muted); margin:0;}
 
 /* ---------- projects ---------- */
 /* ---------- Projects & Blogs: spotlight card ---------- */
@@ -606,6 +635,35 @@ html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 .status-dot{width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:5px;}
 .dot-unread{background-color:#ef4444;}
 .dot-read{background-color:#22c55e;}
+
+/* ---------- fest tabs + events tabs: dark chips in light mode, pastel chips in dark mode ----------
+   These two tab groups (About/Gallery on the fest page, Internal Events/Workshops/Inductions on the
+   events page) get their own coloring rather than the generic .pill rule above, so switching to dark
+   mode doesn't leave them looking like dark-on-dark navy chips. */
+.fest-detail-tabs .pill,
+.event-category-tabs .pill{
+  background-color:#12327A; border-color:#12327A; color:#fff;
+}
+.fest-detail-tabs .pill:hover,
+.event-category-tabs .pill:hover{
+  background-color:#1B45A8; border-color:#1B45A8; color:#fff;
+}
+.fest-detail-tabs .pill.is-active,
+.event-category-tabs .pill.is-active{
+  background-color:var(--magenta); border-color:var(--magenta); color:#fff;
+}
+html[data-theme="dark"] .fest-detail-tabs .pill,
+html[data-theme="dark"] .event-category-tabs .pill{
+  background-color:#DCE9FF; border-color:#DCE9FF; color:#12327A;
+}
+html[data-theme="dark"] .fest-detail-tabs .pill:hover,
+html[data-theme="dark"] .event-category-tabs .pill:hover{
+  background-color:#C6DBFF; border-color:#C6DBFF; color:#12327A;
+}
+html[data-theme="dark"] .fest-detail-tabs .pill.is-active,
+html[data-theme="dark"] .event-category-tabs .pill.is-active{
+  background-color:#F8CBE4; border-color:#F8CBE4; color:#7A1652;
+}
 
 .section-header-row{display:flex; align-items:center; gap:12px; margin-bottom:25px;}
 .section-title-mono{font-family:var(--font-mono); font-size:1.25rem; font-weight:700; color:var(--ink); text-transform:uppercase; letter-spacing:0.08em; margin:0;}
