@@ -388,7 +388,11 @@ const galleryData = {
     {src:"gallery-images/atmos2024-2.jpg", alt:"Hackathon '24 in progress, room J219"},
     {src:"gallery-images/atmos2024-3.jpg", alt:"Hackathon '24 in progress, room J220"},
     {src:"gallery-images/atmos2024-4.jpg", alt:"ACM-W Bingo icebreaker activity at ATMOS 2024"},
-    {src:"gallery-images/atmos2024-5.jpg", alt:"ACM-W team at Hackathon '24, ATMOS"}
+    {src:"gallery-images/atmos2024-5.jpg", alt:"ACM-W team at Hackathon '24, ATMOS"},
+    {src:"gallery-images/atmos2024-6.jpg", alt:"'ACM-W Hackathon' written on the chalkboard as a member gives instructions"},
+    {src:"gallery-images/atmos2024-7.jpg", alt:"Participants coding on laptops during the ATMOS 2024 hackathon"},
+    {src:"gallery-images/atmos2024-8.jpg", alt:"Participants and organizers milling about the hackathon room"},
+    {src:"gallery-images/atmos2024-9.jpg", alt:"ACM-W and IEEE members posing together at ATMOS 2024"}
   ]
 };
 
