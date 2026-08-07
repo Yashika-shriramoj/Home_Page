@@ -463,10 +463,7 @@ buildImageSlider(document.getElementById("galleryCodeflix"), galleryData.codefli
 const festData = {
   atmos2024: {
     title: "ATMOS 2024",
-    date: "TBA",
-    time: "TBA",
-    presenter: "TBA",
-    description: "ACM-W ran a women-in-tech panel and a beginner hackathon track during ATMOS 2024."
+    description: "The first ever Hackathon organized by the chapter! We were thrilled by the active and enthusiastic participation we received. The lineup kicked off with an ACM-W Bingo icebreaker to get everyone mingling, followed by a full-fledged Hackathon where teams brainstormed, built, and pitched their ideas — all part of a packed slate of events that made ATMOS 2024 one to remember."
   },
   techweek2024: {
     title: "Tech Week 2024",
@@ -497,10 +494,13 @@ const festAboutPanelEl = document.getElementById("festAboutPanel");
 const festGalleryPanelEl = document.getElementById("festGalleryPanel");
 
 function renderFestAbout(fest){
+  const metaRows = [
+    fest.date ? `<p class="fest-about-meta"><strong>Date:</strong> ${fest.date}</p>` : "",
+    fest.time ? `<p class="fest-about-meta"><strong>Time:</strong> ${fest.time}</p>` : "",
+    fest.presenter ? `<p class="fest-about-meta"><strong>Presenter:</strong> ${fest.presenter}</p>` : ""
+  ].join("");
   festAboutPanelEl.innerHTML = `
-    <p class="fest-about-meta"><strong>Date:</strong> ${fest.date}</p>
-    <p class="fest-about-meta"><strong>Time:</strong> ${fest.time}</p>
-    <p class="fest-about-meta"><strong>Presenter:</strong> ${fest.presenter}</p>
+    ${metaRows}
     <p>${fest.description}</p>
   `;
 }
