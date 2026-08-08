@@ -503,10 +503,8 @@ function buildTestimonialSlider(container, testimonials){
       </div>
     </div>
     ${testimonials.length > 1 ? `
-    <button class="img-slider-btn prev" type="button" aria-label="Previous testimonial">‹</button>
-    <button class="img-slider-btn next" type="button" aria-label="Next testimonial">›</button>
     <div class="img-slider-dots">
-      ${testimonials.map((_, i) => `<button class="img-slider-dot${i === 0 ? " is-active" : ""}" type="button" data-idx="${i}" aria-label="Go to testimonial ${i + 1}"></button>`).join("")}
+      ${testimonials.map((_, i) => `<span class="img-slider-dot${i === 0 ? " is-active" : ""}"></span>`).join("")}
     </div>` : ""}
   `;
   const track = container.querySelector(".testimonial-slider-track");
@@ -516,11 +514,6 @@ function buildTestimonialSlider(container, testimonials){
     track.style.transform = `translateX(-${idx * 100}%)`;
     dots.forEach((d, di) => d.classList.toggle("is-active", di === idx));
   }
-  const prevBtn = container.querySelector(".img-slider-btn.prev");
-  const nextBtn = container.querySelector(".img-slider-btn.next");
-  if(prevBtn) prevBtn.addEventListener("click", () => { goTo(idx - 1); restartAutoplay(); });
-  if(nextBtn) nextBtn.addEventListener("click", () => { goTo(idx + 1); restartAutoplay(); });
-  dots.forEach(d => d.addEventListener("click", () => { goTo(Number(d.dataset.idx)); restartAutoplay(); }));
 
   function startAutoplay(){
     if(testimonials.length < 2) return;
@@ -528,10 +521,6 @@ function buildTestimonialSlider(container, testimonials){
   }
   function stopAutoplay(){
     if(container._autoplayTimer){ clearInterval(container._autoplayTimer); container._autoplayTimer = null; }
-  }
-  function restartAutoplay(){
-    stopAutoplay();
-    startAutoplay();
   }
   container.addEventListener("mouseenter", stopAutoplay);
   container.addEventListener("mouseleave", startAutoplay);
