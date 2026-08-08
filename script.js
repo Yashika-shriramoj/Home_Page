@@ -454,6 +454,94 @@ function buildImageSlider(container, images){
 buildImageSlider(document.getElementById("galleryAppDev"), galleryData.appdev);
 buildImageSlider(document.getElementById("galleryCodeflix"), galleryData.codeflix);
 
+/* ---------- Testimonials slider ---------- */
+const testimonialData = [
+  {
+    quote: "ACM-W is an awesome community of women in tech who have a great vision! It gave me a platform to build my skills mainly in UI/UX domain! I'm extremely grateful for this club! Thank you!",
+    initials: "LA",
+    name: "Lavanya Agarwal",
+    role: "Member"
+  },
+  {
+    quote: "ACM-W helped me find a community of like-minded peeps with respect to contests and discussions. It gave me enough backing to kickstart on my own.",
+    initials: "SG",
+    name: "Sruti Guduru",
+    role: "ML Mentor (26-27)"
+  },
+  {
+    quote: "Being a part of the ACM-W was a really memorable experience. When I first joined as a beginner, the weekly guidance and support from my mentors made it easy to learn a lot and comfortably build my skills. Over time, that supportive community gave me the confidence to grow into the role of UI/UX mentor and Vice President. Serving as a mentor allowed me to help peers build practical design skills, while my time in leadership focused on overseeing chapter initiatives, coordinating domain efforts, and strategically improving the club's tech culture. ACM-W is a great network that guides you from the structured mentorship when you are starting out and helps you develop real leadership skills as you grow.",
+    initials: "SV",
+    name: "Saanvi Varma",
+    role: "Vice President (25-26)"
+  },
+  {
+    quote: "From being a mentee to becoming a mentor, my journey with ACM-W has been an amazing experience. It was my first tech club, and it played a huge role in helping me explore different areas of technology and discover what I truly enjoy.",
+    initials: "PR",
+    name: "Pavithra Ramesh",
+    role: "ML Mentor (24-25)"
+  }
+];
+
+function buildTestimonialSlider(container, testimonials){
+  if(!container || !testimonials || !testimonials.length) return;
+  if(container._autoplayTimer) clearInterval(container._autoplayTimer);
+
+  let idx = 0;
+  container.innerHTML = `
+    <div class="testimonial-slider-viewport">
+      <div class="testimonial-slider-track">
+        ${testimonials.map(t => `
+          <div class="testimonial-slide">
+            <div class="testimonial-card">
+              <p class="testimonial-quote">"${t.quote}"</p>
+              <div class="testimonial-person">
+                <span class="avatar">${t.initials}</span>
+                <div><strong>${t.name}</strong><span>${t.role}</span></div>
+              </div>
+            </div>
+          </div>`).join("")}
+      </div>
+    </div>
+    ${testimonials.length > 1 ? `
+    <button class="img-slider-btn prev" type="button" aria-label="Previous testimonial">‹</button>
+    <button class="img-slider-btn next" type="button" aria-label="Next testimonial">›</button>
+    <div class="img-slider-dots">
+      ${testimonials.map((_, i) => `<button class="img-slider-dot${i === 0 ? " is-active" : ""}" type="button" data-idx="${i}" aria-label="Go to testimonial ${i + 1}"></button>`).join("")}
+    </div>` : ""}
+  `;
+  const track = container.querySelector(".testimonial-slider-track");
+  const dots = container.querySelectorAll(".img-slider-dot");
+  function goTo(i){
+    idx = (i + testimonials.length) % testimonials.length;
+    track.style.transform = `translateX(-${idx * 100}%)`;
+    dots.forEach((d, di) => d.classList.toggle("is-active", di === idx));
+  }
+  const prevBtn = container.querySelector(".img-slider-btn.prev");
+  const nextBtn = container.querySelector(".img-slider-btn.next");
+  if(prevBtn) prevBtn.addEventListener("click", () => { goTo(idx - 1); restartAutoplay(); });
+  if(nextBtn) nextBtn.addEventListener("click", () => { goTo(idx + 1); restartAutoplay(); });
+  dots.forEach(d => d.addEventListener("click", () => { goTo(Number(d.dataset.idx)); restartAutoplay(); }));
+
+  function startAutoplay(){
+    if(testimonials.length < 2) return;
+    container._autoplayTimer = setInterval(() => goTo(idx + 1), AUTOPLAY_DELAY_MS);
+  }
+  function stopAutoplay(){
+    if(container._autoplayTimer){ clearInterval(container._autoplayTimer); container._autoplayTimer = null; }
+  }
+  function restartAutoplay(){
+    stopAutoplay();
+    startAutoplay();
+  }
+  container.addEventListener("mouseenter", stopAutoplay);
+  container.addEventListener("mouseleave", startAutoplay);
+  container.addEventListener("focusin", stopAutoplay);
+  container.addEventListener("focusout", startAutoplay);
+  startAutoplay();
+}
+
+buildTestimonialSlider(document.getElementById("testimonialSlider"), testimonialData);
+
 /* ---------------------------------------------------
    7. FESTS PAGE — click a fest to open its detail panel
    with two switchable views: About the event / Gallery.
