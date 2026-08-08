@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogs and articles | ACM-W BPHC</title>
     
+    <script>
+        if (localStorage.getItem('acmw-theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* =====================================================
-           ACM-W BPHC — Design tokens matched to friend's home page
+           ACM-W BPHC — Design tokens matched to home page
            ===================================================== */
         :root{
             --ink:        #12327A;
@@ -48,7 +54,7 @@
             --container: 1180px;
         }
 
-        /* ---------- dark mode tokens (matched to friend's page) ---------- */
+        /* ---------- dark mode tokens ---------- */
         html[data-theme="dark"]{
             --ink:        #F3F6FF;
             --ink-soft:   #C9D6F5;
@@ -59,7 +65,7 @@
             --violet:     #6E93FF;
             --teal:       #45D6C9;
             --muted:      #93A3C6;
-            --line:       rgba(255,255,255,0.14);
+            --line:       rgba(255, 255, 255, 0.05); /* beautiful subtle border in dark mode */
             --shadow:     rgba(0,0,0,0.35);
             --grad-1:     #2A3F72;
             --grad-2:     #3B3873;
@@ -86,7 +92,7 @@
         ul{margin:0; padding:0; list-style:none;}
         button{font-family:inherit; cursor:pointer;}
 
-        /* Background Animated Gradient matching friend's hero/site background */
+        /* Background Animated Gradient */
         .site-bg{
             position:fixed; inset:0;
             z-index:-1;
@@ -143,7 +149,7 @@
             background: var(--paper-tint); color: var(--magenta);
         }
 
-        /* Theme Toggle matched to friend's button */
+        /* Theme Toggle */
         .theme-toggle{
             position:relative; display:inline-flex; align-items:center;
             width:52px; height:28px; padding:3px; border-radius:999px; flex-shrink:0;
@@ -162,7 +168,6 @@
         html[data-theme="dark"] .theme-toggle .icon-sun{display:none;}
         html[data-theme="dark"] .theme-toggle .icon-moon{display:block;}
 
-        /* Signature bar motif matching the reference image */
         .bars { 
             display: inline-flex; 
             height: 8px; 
@@ -175,7 +180,6 @@
             vertical-align: middle;
         }
 
-        /* Section header style with inline motif + mono font */
         .section-header-row {
             display: flex;
             align-items: center;
@@ -200,7 +204,7 @@
             padding: 40px 24px;
         }
 
-        /* Spotlight Section - Static / No Hover Effects */
+        /* Spotlight Section */
         .spotlight-card {
             background-color: var(--surface);
             border-radius: var(--radius);
@@ -313,7 +317,7 @@
             font-family: var(--font-mono);
         }
 
-        /* Author Bio Tooltip / Popup Card */
+        /* Author Bio Popup */
         .author-bio-popup {
             position: absolute;
             bottom: calc(100% + 10px);
@@ -395,7 +399,6 @@
             border-color: var(--ink);
         }
 
-        /* Redesigned Sleek Pill-Style Sort Dropdown */
         .sort-select {
             appearance: none;
             -webkit-appearance: none;
@@ -432,7 +435,6 @@
             margin-bottom: 60px;
         }
 
-        /* Basic Story / Blog Cards */
         .story-card {
             background-color: var(--surface);
             border-radius: var(--radius);
@@ -444,7 +446,6 @@
             border: 1px solid var(--line);
             position: relative;
             z-index: 1;
-            /* Added transition for smooth filtering */
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
@@ -541,88 +542,117 @@
             font-family: var(--font-mono);
         }
 
-        /* Footer matching friend's layout and style precisely */
+        /* =====================================================
+           BRAND NEW REDESIGNED FOOTER
+           ===================================================== */
         .site-footer {
             background: var(--navy-fixed);
-            color: #F0D6E4;
-            padding: 64px 24px 30px;
+            padding: 50px 24px 20px;
+            color: #FFFFFF;
+            font-family: var(--font-body);
         }
 
-        .footer-inner {
+        .footer-container {
             max-width: var(--container);
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 48px;
         }
 
-        .footer-brand h3 {
-            color: #fff;
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo img {
+            height: 60px; /* Adjust this value to perfectly fit your w_logo.png */
+            width: auto;
+        }
+
+        .footer-socials {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-socials p {
+            margin: 0;
             font-family: var(--font-display);
             font-size: 1.1rem;
-            margin-top: 4px;
+            font-weight: 600;
+            color: #FFFFFF;
         }
 
-        .footer-brand p {
-            color: #F0D6E4;
-            margin: 12px 0 2px;
-            font-family: var(--font-display);
-            font-size: 1.1rem;
+        .social-icons {
+            display: flex;
+            gap: 15px;
         }
 
-        .footer-brand .muted {
-            color: #B08094;
-            font-size: 0.82rem;
-            font-family: var(--font-body);
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            color: #FFFFFF;
+            transition: all 0.2s ease;
         }
 
-        .footer-links {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            max-width: 360px;
+        .social-icons a:hover {
+            background: var(--magenta);
+            transform: translateY(-3px);
         }
 
-        .footer-links h4 {
-            color: #fff;
+        .social-icons svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Updated Bottom Footer Bar */
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15); /* The thin line divider */
+        }
+
+        .footer-bottom p {
+            margin: 0;
             font-size: 0.85rem;
-            margin-bottom: 14px;
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .footer-links a {
-            display: block;
-            color: #D9A9C2;
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8); /* Brighter text to match your image */
             font-family: var(--font-body);
         }
 
-        .footer-links a:hover {
-            color: var(--amber);
+        .footer-bottom .heart {
+            color: var(--magenta); /* The pink heart */
         }
 
-        .footer-copy {
-            text-align: center;
-            color: #D9A9C2;
-            font-size: 0.78rem;
-            margin: 50px 0 0;
-            font-family: var(--font-body);
-        }
-
+        /* Mobile Responsiveness */
         @media (max-width: 900px) {
             .spotlight-card {
                 grid-template-columns: 1fr;
             }
-            .footer-inner {
-                grid-template-columns: 1fr;
-                gap: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-top {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
             }
-            .footer-links {
-                grid-template-columns: 1fr 1fr;
+            .footer-socials {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
             }
         }
     </style>
@@ -718,7 +748,7 @@
                         <p>A step-by-step devlog detailing the collaborative design and debugging process of our recent induction task.</p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="read-more">Read More &rarr;</a>
+                        <a href="multi-sensor-hardware.html" class="read-more">Read More &rarr;</a>
                         <span class="read-time">12 MIN READ</span>
                     </div>
                 </div>
@@ -738,7 +768,7 @@
                         <p>Breaking down recent industry announcements regarding qubit stability and dual-control Toffoli gate execution.</p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="read-more">Read More &rarr;</a>
+                        <a href="quantum-algorithms.html" class="read-more">Read More &rarr;</a>
                         <span class="read-time">9 MIN READ</span>
                     </div>
                 </div>
@@ -758,7 +788,7 @@
                         <p>A historical deep-dive into the foundational engineering contributions made by women in early computational science.</p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="read-more">Read More &rarr;</a>
+                        <a href="pioneers-of-code.html" class="read-more">Read More &rarr;</a>
                         <span class="read-time">4 MIN READ</span>
                     </div>
                 </div>
@@ -768,42 +798,46 @@
     </div>
 
     <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <div class="bars"></div>
-                <h3>ACM-W BPHC</h3>
-                <p>Student chapter - BITS Pilani, Hyderabad Campus</p>
-                <span class="muted">Empowering women in technology</span>
-            </div>
-            <div class="footer-links">
-                <div>
-                    <h4>Connect</h4>
-                    <ul>
-                        <li><a href="#">Email us</a></li>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">LinkedIn</a></li>
-                    </ul>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="w_logo.png" alt="ACM-W Logo">
                 </div>
-                <div>
-                    <h4>Contact Us</h4>
-                    <ul>
-                        <li><a href="#">Get in touch &rarr;</a></li>
-                    </ul>
+                <div class="footer-socials">
+                    <p>Follow Us</p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 1.76-6.98 6.278-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 1.76 6.78 6.278 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-1.762 6.979-6.278.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-1.778-6.78-6.279-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Discord">
+                            <svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="footer-copy">
-            <p>&copy; 2026 ACM-W, BITS Pilani Hyderabad Campus. Built by the chapter, for the chapter.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ACM-W BITS Pilani Hyderabad Campus.</p>
+                <p>Made with <span class="heart">♥</span> by ACM-W BPHC</p>
+            </div>
         </div>
     </footer>
 
     <script>
+        // Toggle theme and save choice to memory
         function toggleTheme() {
             const html = document.documentElement;
             if (html.getAttribute('data-theme') === 'dark') {
                 html.removeAttribute('data-theme');
+                localStorage.setItem('acmw-theme', 'light');
             } else {
                 html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('acmw-theme', 'dark');
             }
         }
 
@@ -817,7 +851,7 @@
             const storyCards = Array.from(document.querySelectorAll('.story-card'));
             storyCards.forEach((card, index) => card.dataset.originalIndex = index);
 
-            // A small dictionary linking your button names to the text inside the actual badges
+            // Dictionary linking your button names to the text inside the actual badges
             const categoryMapping = {
                 'Member Posts': 'Member Post',
                 'News Explainers': 'News Explainer',
@@ -834,28 +868,22 @@
                 // 3. Filter the cards based on category
                 let visibleCards = storyCards.filter(card => {
                     if (activeFilter === 'All') return true;
-                    
                     const cardBadgeText = card.querySelector('.badge').textContent.trim();
                     return cardBadgeText === categoryMapping[activeFilter];
                 });
 
                 // 4. Sort the remaining visible cards based on read time
                 if (activeSort === 'quick') {
-                    // Quick reads: Shortest time first (ascending)
                     visibleCards.sort((a, b) => parseInt(a.dataset.readTime) - parseInt(b.dataset.readTime));
                 } else if (activeSort === 'long') {
-                    // Deep dives: Longest time first (descending)
                     visibleCards.sort((a, b) => parseInt(b.dataset.readTime) - parseInt(a.dataset.readTime));
                 } else {
-                    // Most Recent: Revert to the original index they loaded in
                     visibleCards.sort((a, b) => parseInt(a.dataset.originalIndex) - parseInt(b.dataset.originalIndex));
                 }
 
                 // 5. Update the page to reflect changes
-                // First, visually hide all cards in the grid
                 storyCards.forEach(card => card.style.display = 'none');
                 
-                // Then, append the visible cards back into the grid in their newly sorted order!
                 visibleCards.forEach(card => {
                     card.style.display = 'flex';
                     storiesGrid.appendChild(card);
@@ -865,11 +893,8 @@
             // Listen for clicks on the filter pill buttons
             filterPills.forEach(pill => {
                 pill.addEventListener('click', (e) => {
-                    // Remove the 'active' dark styling from all buttons
                     filterPills.forEach(p => p.classList.remove('active'));
-                    // Add the 'active' dark styling to the one you just clicked
                     e.target.classList.add('active');
-                    
                     updateGrid();
                 });
             });
