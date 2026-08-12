@@ -723,8 +723,6 @@ html[data-theme="dark"] .fest-detail-tabs .pill.is-active{
   .spotlight-card{grid-template-columns:1fr;}
 }
 /* ---------- testimonials ---------- */
-#testimonials .section-inner{text-align:center;}
-#testimonials .eyebrow{justify-content:center;}
 .testimonial-slider{position:relative; margin-top:16px; user-select:none; max-width:640px; margin-left:auto; margin-right:auto;}
 .testimonial-slider-viewport{overflow:hidden; border-radius:var(--radius);}
 .testimonial-slider-track{display:flex; transition:transform 0.45s cubic-bezier(.4,0,.2,1);}
