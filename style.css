@@ -32,9 +32,9 @@
   --navy-fixed:      #0A1730;
   --navy-fixed-soft: #142A4E;
 
-  --font-display: 'Space Grotesk', 'Poppins', sans-serif;
+  --font-display: 'Playfair Display', serif;
   --font-accent: 'Fraunces', serif;
-  --font-body: 'Inter', sans-serif;
+  --font-body: 'Lora', serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --radius: 14px;
