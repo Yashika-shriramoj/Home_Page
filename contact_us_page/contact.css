@@ -3,15 +3,24 @@
    Centered, responsive, and dynamic theme switching
    ===================================================== */
 
+/* ---------- font import ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+
+:root {
+  --font-bricolage: "Bricolage Grotesque", sans-serif;
+}
+
 /* ---------- centered hero (contact page only) ---------- */
 .page-hero {
   text-align: left;
+  font-family: var(--font-bricolage);
 }
 .page-hero .eyebrow {
   justify-content: left;
 }
 .page-hero-sub {
   margin-right: auto;
+  font-family: var(--font-bricolage);
 }
 
 /* tighten the gap between the hero and the terminal card
@@ -117,6 +126,7 @@ html[data-theme="dark"] {
   background: var(--term-row-bg);
   color: var(--term-row-text);
   text-decoration: none;
+  font-family: var(--font-bricolage);
   transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease, color 0.3s ease;
 }
 
@@ -153,6 +163,7 @@ html[data-theme="dark"] {
 }
 
 .contact-value {
+  font-family: var(--font-bricolage);
   font-size: 0.95rem;
   font-weight: 500;
   overflow-wrap: anywhere;
@@ -170,7 +181,13 @@ html[data-theme="dark"] {
   transform: translate(2px,-2px);
 }
 
-.term-hint { margin: 4px 0 0; min-height: 18px; color: var(--term-path); transition: color 0.3s ease; }
+.term-hint {
+  margin: 4px 0 0;
+  min-height: 18px;
+  color: var(--term-path);
+  font-family: var(--font-bricolage);
+  transition: color 0.3s ease;
+}
 
 /* copy feedback state for the email row */
 .contact-row a.is-copied { border-color: var(--violet); background: var(--teal); color: #fff; }
