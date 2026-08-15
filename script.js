@@ -59,8 +59,14 @@ document.addEventListener("click", (e) => {
 });
 
 window.addEventListener("DOMContentLoaded", () => {
-  const initial = location.hash.replace("#", "") || "home";
-  showPage(initial);
+  const hash = location.hash.replace("#", "") || "home";
+  if(document.getElementById("page-" + hash)){
+    showPage(hash);
+  } else if(document.getElementById(hash)){
+    showPage("home", hash);
+  } else {
+    showPage("home");
+  }
 });
 
 /* ---------------------------------------------------
