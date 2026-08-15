@@ -3,9 +3,7 @@
    Centered, responsive, and dynamic theme switching
    ===================================================== */
 
-/* ---------- font import ---------- */
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
-
+/* font is loaded via the <link> tag in contact.html's <head> */
 :root {
   --font-bricolage: "Bricolage Grotesque", sans-serif;
 }
