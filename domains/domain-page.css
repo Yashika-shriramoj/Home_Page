@@ -133,6 +133,8 @@
 .study-content li{margin-bottom:0.55em; line-height:1.6; color:var(--ink-soft);}
 .study-content li:last-child{margin-bottom:0;}
 .study-content img{margin:1.5em auto; border-radius:8px;}
+.study-content a{color:var(--magenta); text-decoration:none; font-weight:600;}
+.study-content a:hover{text-decoration:underline;}
 
 @media (max-width: 480px){
   .flip-card{height:360px;}
