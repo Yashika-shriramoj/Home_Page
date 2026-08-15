@@ -1,60 +1,73 @@
 /* =====================================================
    ACM-W BPHC — study.html content loader
    Reads ?topic=<slug> from the URL and fills in the
-   template with that topic's title + (placeholder)
-   study material. Add new topics to TOPICS below as
-   more resource cards are added across domain pages.
+   template with that topic's title + study material.
+   Add new topics to TOPICS below as more resource cards
+   are added across domain pages.
    ===================================================== */
 const TOPICS = {
-  "complexity": {
+  "intro-to-cc": {
     domainLabel: "Competitive Coding",
     domainHref: "cc.html",
-    title: "Time & Space Complexity",
-    intro: "Big-O basics and how to reason about whether a solution will actually run in time.",
-  },
-  "arrays-strings": {
-    domainLabel: "Competitive Coding",
-    domainHref: "cc.html",
-    title: "Arrays & Strings",
-    intro: "Two pointers, sliding window, and prefix sums — the bread and butter of easy-medium problems.",
-  },
-  "graphs-trees": {
-    domainLabel: "Competitive Coding",
-    domainHref: "cc.html",
-    title: "Graphs & Trees",
-    intro: "BFS, DFS, shortest paths, and traversal patterns that show up in half of all contest problems.",
-  },
-  "dynamic-programming": {
-    domainLabel: "Competitive Coding",
-    domainHref: "cc.html",
-    title: "Dynamic Programming",
-    intro: "Recognizing overlapping subproblems and building up from brute force to an optimal solution.",
-  },
-  "contest-strategy": {
-    domainLabel: "Competitive Coding",
-    domainHref: "cc.html",
-    title: "Contest Strategy & STL",
-    intro: "Templates, fast I/O, the STL/standard library shortcuts, and how to pace a contest.",
+    title: "Intro to Competitive Coding",
+    intro: "A beginner's guide to competitive coding — what it is, how to set up your environment, and the C++ basics you need before your first contest.",
+    sections: [
+      {
+        heading: "Beginner's Guide to Competitive Coding",
+        html: `
+          <p>Competitive coding is a fun and practical way to improve your programming and problem-solving skills. You are given a problem, a set of constraints, and limited time to write a program that produces the correct output.</p>
+          <p>You do not need to know advanced algorithms to begin. Start with the basics, practise regularly, and improve one topic at a time.</p>
+        `
+      },
+      {
+        heading: "1. Set Up Your Coding Environment",
+        html: `
+          <p>For this guide, we recommend using C++, Sublime Text, and the MinGW compiler on Windows.</p>
+          <h3>Install Sublime Text</h3>
+          <p><a href="https://www.sublimetext.com/" target="_blank" rel="noopener">Sublime Text</a> is a lightweight and beginner-friendly code editor. It starts quickly and can be configured to compile and run C++ programs.</p>
+          <h3>Install MinGW</h3>
+          <p>MinGW provides the <code>g++</code> compiler required to compile C++ programs on Windows. After installation, add the MinGW <code>bin</code> folder — for example, <code>C:\\MinGW\\bin</code> — to your system's PATH. You can check whether the installation worked by running <code>g++ --version</code> in Command Prompt.</p>
+          <h3>Configure Sublime Text</h3>
+          <p>After installing MinGW:</p>
+          <ol>
+            <li>Open Sublime Text.</li>
+            <li>Go to Tools → Build System → New Build System.</li>
+            <li>Add a C++ build configuration.</li>
+            <li>Save it as <code>C++ (MinGW).sublime-build</code>.</li>
+            <li>Select it from Tools → Build System.</li>
+            <li>Open a <code>.cpp</code> file and press <code>Ctrl+B</code> to build and run it.</li>
+          </ol>
+          <p>This setup allows you to write, compile, and test C++ programs directly from Sublime Text.</p>
+          <h3>Recommended setup videos</h3>
+          <ul>
+            <li><a href="https://youtu.be/Fql_b-xZYwQ" target="_blank" rel="noopener">Setup walkthrough video 1</a></li>
+            <li><a href="https://youtu.be/JsO58opI3SQ" target="_blank" rel="noopener">Setup walkthrough video 2</a></li>
+          </ul>
+        `
+      },
+      {
+        heading: "2. Learn the Basics of C++",
+        html: `
+          <p>Before solving contest problems, become comfortable with these concepts:</p>
+          <ul>
+            <li>Variables and data types.</li>
+            <li>Input and output using <code>cin</code> and <code>cout</code>.</li>
+            <li>Conditional statements such as <code>if</code>, <code>else if</code>, and <code>else</code>.</li>
+            <li>Loops using <code>for</code> and <code>while</code>.</li>
+            <li>Functions.</li>
+            <li>Arrays and strings.</li>
+            <li>Vectors.</li>
+            <li>Pairs.</li>
+            <li>Sorting.</li>
+            <li>Basic use of the C++ Standard Template Library, or STL.</li>
+          </ul>
+          <p>C++ learning resources: <a href="https://www.w3schools.com/cpp/cpp_getstarted.asp" target="_blank" rel="noopener">w3schools — C++ Get Started</a></p>
+        `
+      },
+    ],
   },
 };
-const LOREM_SECTIONS = [
-  {
-    heading: "Overview",
-    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    heading: "Key Concepts",
-    body: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  },
-  {
-    heading: "Worked Example",
-    body: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
-  },
-  {
-    heading: "Practice",
-    body: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet."
-  },
-];
+
 function renderTopic(slug){
   const topic = TOPICS[slug];
   const titleEl = document.getElementById("topicTitle");
@@ -75,9 +88,10 @@ function renderTopic(slug){
   introEl.textContent = topic.intro;
   backEl.textContent = "← Back to " + topic.domainLabel;
   backEl.href = topic.domainHref;
-  contentEl.innerHTML = LOREM_SECTIONS.map(section =>
-    `<h2>${section.heading}</h2><p>${section.body}</p>`
+  contentEl.innerHTML = topic.sections.map(section =>
+    `<h2>${section.heading}</h2>${section.html}`
   ).join("");
 }
+
 const params = new URLSearchParams(window.location.search);
 renderTopic(params.get("topic"));
