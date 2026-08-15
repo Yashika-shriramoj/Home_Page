@@ -32,10 +32,10 @@
   --navy-fixed:      #0A1730;
   --navy-fixed-soft: #142A4E;
 
-  --font-display: 'Playfair Display', serif;
-  --font-accent: 'Fraunces', serif;
-  --font-body: 'Lora', serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Bricolage Grotesque', sans-serif;
+  --font-accent: 'Bricolage Grotesque', sans-serif;
+  --font-body: 'Bricolage Grotesque', sans-serif;
+  --font-mono: 'Bricolage Grotesque', sans-serif;
 
   --radius: 14px;
   --container: 1180px;
