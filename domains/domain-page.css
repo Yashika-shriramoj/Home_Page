@@ -5,6 +5,10 @@
    so this automatically matches light/dark theme.
    ===================================================== */
 
+:root {
+  --font-bricolage: "Bricolage Grotesque", sans-serif;
+}
+
 /* ---------- resources (topic cards) ---------- */
 .resources-grid{
   display:grid;
@@ -15,6 +19,7 @@
   display:flex; flex-direction:column; gap:8px;
   background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
   padding:26px; text-decoration:none; color:inherit;
+  font-family:var(--font-bricolage);
   transition:transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 .resource-card:hover{
@@ -62,11 +67,12 @@
 }
 .flip-front{background:var(--surface); border:1px solid var(--line);}
 .flip-front img{width:100%; height:68%; object-fit:cover; display:block;}
-.flip-front h3{padding:16px 16px 0; font-size:1.05rem; color:var(--ink);}
+.flip-front h3{padding:16px 16px 0; font-size:1.05rem; color:var(--ink); font-family:var(--font-bricolage);}
 .flip-back{
   background:var(--navy-fixed); color:#fff;
   transform:rotateY(180deg);
   padding:26px; justify-content:center;
+  font-family:var(--font-bricolage);
 }
 .flip-back h4{color:#fff; font-size:1rem; margin-bottom:10px;}
 .flip-back p{color:#D9A9C2; font-size:0.86rem; margin:0;}
@@ -81,6 +87,7 @@
 .mentor-card{
   background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
   padding:22px; text-align:center;
+  font-family:var(--font-bricolage);
 }
 .mentor-avatar{
   width:64px; height:64px; border-radius:50%; margin:0 auto 12px;
@@ -116,7 +123,7 @@
    site-wide --muted paragraph color, since long-form reading
    needs stronger contrast against the background than short
    captions/labels do. */
-.study-content{max-width:70ch; margin:0 auto;}
+.study-content{max-width:70ch; margin:0 auto; font-family:var(--font-bricolage);}
 .study-content p{font-size:1rem; line-height:1.75; margin-bottom:1.2em; color:var(--ink-soft);}
 .study-content h2{font-size:1.3rem; color:var(--ink); margin:1.6em 0 0.6em;}
 .study-content h2:first-child{margin-top:0;}
