@@ -532,7 +532,7 @@ function buildTestimonialSlider(container, testimonials){
     if(container._autoplayTimer){ clearInterval(container._autoplayTimer); container._autoplayTimer = null; }
   }
   function restartAutoplay(){
-    stopAutoplay();
+    //stopAutoplay();
     startAutoplay();
   }
 
