@@ -564,17 +564,11 @@ const festData = {
   },
   techweek2024: {
     title: "Tech Week 2024",
-    date: "TBA",
-    time: "TBA",
-    presenter: "TBA",
-    description: "Chapter sessions and activities held as part of Tech Week 2024."
+    description: "Details coming soon."
   },
   atmos2025: {
     title: "ATMOS 2025",
-    date: "TBA",
-    time: "TBA",
-    presenter: "TBA",
-    description: "ACM-W's panel and hackathon track during ATMOS 2025."
+    description: "Details coming soon."
   },
   atmos2026: {
     title: "ATMOS 2026",
