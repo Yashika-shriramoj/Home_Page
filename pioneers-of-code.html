@@ -82,13 +82,7 @@
         .back-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--magenta); margin-bottom: 24px; font-weight: 600; }
         .back-link:hover { color: var(--violet); }
         .page-hero-title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 24px; color: var(--ink); }
-        .article-lede { font-size: 1.15rem; color: var(--ink-soft); font-weight: 500; margin-bottom: 30px; line-height: 1.6; }
-        
-        /* Author Info */
-        .author-info { display: flex; align-items: center; gap: 15px; padding-top: 20px; border-top: 1px solid var(--line); }
-        .avatar { width: 44px; height: 44px; background: linear-gradient(135deg, var(--magenta), var(--amber)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-family: var(--font-mono); }
-        .author-details .name { font-weight: 600; color: var(--ink); display: block; font-size: 0.95rem; }
-        .author-details .date { color: var(--muted); font-size: 0.8rem; font-family: var(--font-mono); display: block; }
+        .article-lede { font-size: 1.15rem; color: var(--ink-soft); font-weight: 500; margin-bottom: 30px; line-height: 1.6; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
 
         /* Article Content */
         .article-body { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; font-size: 1.05rem; }
@@ -99,6 +93,14 @@
         .article-body ul li { margin-bottom: 10px; line-height: 1.7; }
         .article-body blockquote { margin: 30px 0; padding: 20px 24px; background: var(--paper-tint); border-left: 4px solid var(--violet); border-radius: 0 8px 8px 0; font-family: var(--font-accent); font-size: 1.15rem; color: var(--ink); font-style: italic; }
         .math-formula { display: block; margin: 20px 0; padding: 15px; background: var(--paper-tint); border-radius: 8px; font-family: var(--font-mono); font-size: 1rem; color: var(--ink); text-align: center; }
+
+        /* References */
+        .references { margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--line); }
+        .references h2 { font-size: 1.4rem; margin-bottom: 20px; color: var(--ink); }
+        .references ol { margin: 0; padding-left: 22px; color: var(--muted); }
+        .references ol li { margin-bottom: 14px; line-height: 1.6; font-size: 0.95rem; }
+        .references a { color: var(--violet); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+        .references a:hover { color: var(--magenta); }
 
         /* Footer */
                 .site-footer { background: var(--navy-fixed); color: #F0D6E4; padding: 64px 24px 30px; }
@@ -146,15 +148,7 @@
     <main class="page-hero">
         <a href="blogs.html" class="back-link">← Back to all posts</a>
         <h1 class="page-hero-title">Pioneers of Code: Celebrating Margaret Hamilton and Grace Hopper</h1>
-        <p class="article-lede">Long before software engineering became a global industry, two women helped define what it meant to write code—and changed the way we think about computers.</p>
-        
-        <div class="author-info">
-            <div class="avatar">TD</div>
-            <div class="author-details">
-                <span class="name">Tech Desk</span>
-                <span class="date">4 min read</span>
-            </div>
-        </div>
+        <p class="article-lede">Long before software engineering became a global industry, two women helped define what it meant to write code—and changed the way we think about computers. · 4 min read</p>
     </main>
 
     <article class="article-body">
@@ -217,6 +211,18 @@
         <p>But great engineering ideas survive. Grace Hopper's vision helped make computers easier for humans to program. Margaret Hamilton's work helped demonstrate that software could be engineered with the same seriousness as any physical system.</p>
         <p>Together, their stories remind us that computing wasn't built only by inventing faster machines. It was built by people who fundamentally changed how humans and machines work together.</p>
         <p>And every line of code we write today stands, in some small way, on foundations they helped build.</p>
+
+        <div class="references">
+            <h2>References</h2>
+            <ol>
+                <li>National Museum of American History, Smithsonian — <a href="https://americanhistory.si.edu/collections/object-groups/grace-hopper" target="_blank" rel="noopener">Grace Hopper: A Legacy of Innovation</a>.</li>
+                <li>Yale University — <a href="https://webcapp.med.yale.edu/library_ysm/hopper" target="_blank" rel="noopener">Grace Murray Hopper</a> biography and Navy career overview.</li>
+                <li>MIT Museum / MIT Instrumentation Laboratory — <a href="https://www.draper.com/news/margaret-hamilton" target="_blank" rel="noopener">Margaret Hamilton and the Apollo Guidance Computer</a>, Draper Laboratory.</li>
+                <li>NASA — <a href="https://www.nasa.gov/history/margaret-hamilton-leads-apollo-software-team/" target="_blank" rel="noopener">Margaret Hamilton Leads Apollo Software Team</a>.</li>
+                <li>NASA History Office — <a href="https://www.nasa.gov/history/the-apollo-11-computer-overload-alarms/" target="_blank" rel="noopener">The Apollo 11 Guidance Computer's 1202 Program Alarms</a>, on the overload event during the lunar landing.</li>
+                <li>IEEE Computer Society — <a href="https://www.computer.org/publications/tech-news/community-voices/grace-hopper-and-margaret-hamilton" target="_blank" rel="noopener">Women Who Shaped Software Engineering</a>.</li>
+            </ol>
+        </div>
     </article>
 
         <footer class="site-footer">
