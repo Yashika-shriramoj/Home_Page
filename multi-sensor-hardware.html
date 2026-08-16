@@ -82,13 +82,7 @@
         .back-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--magenta); margin-bottom: 24px; font-weight: 600; }
         .back-link:hover { color: var(--violet); }
         .page-hero-title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 24px; color: var(--ink); }
-        .article-lede { font-size: 1.15rem; color: var(--ink-soft); font-weight: 500; margin-bottom: 30px; line-height: 1.6; }
-        
-        /* Author Info */
-        .author-info { display: flex; align-items: center; gap: 15px; padding-top: 20px; border-top: 1px solid var(--line); }
-        .avatar { width: 44px; height: 44px; background: linear-gradient(135deg, var(--magenta), var(--amber)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-family: var(--font-mono); }
-        .author-details .name { font-weight: 600; color: var(--ink); display: block; font-size: 0.95rem; }
-        .author-details .date { color: var(--muted); font-size: 0.8rem; font-family: var(--font-mono); display: block; }
+        .article-lede { font-size: 1.15rem; color: var(--ink-soft); font-weight: 500; margin-bottom: 30px; line-height: 1.6; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
 
         /* Article Content */
         .article-body { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; font-size: 1.05rem; }
@@ -99,6 +93,14 @@
         .article-body ul li { margin-bottom: 10px; line-height: 1.7; }
         .article-body blockquote { margin: 30px 0; padding: 20px 24px; background: var(--paper-tint); border-left: 4px solid var(--violet); border-radius: 0 8px 8px 0; font-family: var(--font-accent); font-size: 1.15rem; color: var(--ink); font-style: italic; }
         .math-formula { display: block; margin: 20px 0; padding: 15px; background: var(--paper-tint); border-radius: 8px; font-family: var(--font-mono); font-size: 1rem; color: var(--ink); text-align: center; }
+
+        /* References */
+        .references { margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--line); }
+        .references h2 { font-size: 1.4rem; margin-bottom: 20px; color: var(--ink); }
+        .references ol { margin: 0; padding-left: 22px; color: var(--muted); }
+        .references ol li { margin-bottom: 14px; line-height: 1.6; font-size: 0.95rem; }
+        .references a { color: var(--violet); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+        .references a:hover { color: var(--magenta); }
 
         /* Footer */
                 .site-footer { background: var(--navy-fixed); color: #F0D6E4; padding: 64px 24px 30px; }
@@ -146,15 +148,7 @@
     <main class="page-hero">
         <a href="blogs.html" class="back-link">← Back to all posts</a>
         <h1 class="page-hero-title">My Journey Building a Multi-Sensor Hardware Warning System</h1>
-        <p class="article-lede">From scattered ideas and messy wiring to a working prototype — a behind-the-scenes look at designing, debugging, and bringing a multi-sensor system to life.</p>
-        
-        <div class="author-info">
-            <div class="avatar">PM</div>
-            <div class="author-details">
-                <span class="name">PRISM Member</span>
-                <span class="date">12 min read</span>
-            </div>
-        </div>
+        <p class="article-lede">From scattered ideas and messy wiring to a working prototype — a behind-the-scenes look at designing, debugging, and bringing a multi-sensor system to life. · 12 min read</p>
     </main>
 
     <article class="article-body">
@@ -249,6 +243,17 @@
         <h2>From Breadboard to Bigger Ideas</h2>
         <p>A multi-sensor warning system might seem like a small project. But it introduces several ideas that scale enormously: Sensor fusion, Embedded programming, Signal processing, Control logic, Fault detection, Hardware debugging, and System architecture.</p>
         <p>The components may change as projects become more advanced. The engineering mindset doesn't.</p>
+
+        <div class="references">
+            <h2>References</h2>
+            <ol>
+                <li>Arduino Documentation — <a href="https://docs.arduino.cc/learn/microcontrollers/analog-input/" target="_blank" rel="noopener">Analog Input</a>, covering how microcontrollers sample analog voltages via an ADC.</li>
+                <li>Texas Instruments, <a href="https://www.ti.com/lit/an/sboa447/sboa447.pdf" target="_blank" rel="noopener">Understanding ADC Fundamentals</a> — application note on quantization, resolution, and sampling.</li>
+                <li>SparkFun Electronics — <a href="https://learn.sparkfun.com/tutorials/analog-vs-digital" target="_blank" rel="noopener">Analog vs. Digital</a>, an introductory guide to sensor signal types.</li>
+                <li>MathWorks, <a href="https://www.mathworks.com/discovery/hysteresis.html" target="_blank" rel="noopener">Hysteresis in Control Systems</a> — background on threshold flicker and hysteresis-based debouncing.</li>
+                <li>National Instruments, <a href="https://www.ni.com/en/shop/data-acquisition/measurement-fundamentals-refresh/signal-conditioning-fundamentals.html" target="_blank" rel="noopener">Signal Conditioning Fundamentals</a> — noise filtering and moving-average techniques for sensor data.</li>
+            </ol>
+        </div>
     </article>
 
         <footer class="site-footer">

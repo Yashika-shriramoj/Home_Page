@@ -82,13 +82,7 @@
         .back-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--magenta); margin-bottom: 24px; font-weight: 600; }
         .back-link:hover { color: var(--violet); }
         .page-hero-title { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 24px; color: var(--ink); }
-        .article-lede { font-size: 1.15rem; color: var(--ink-soft); font-weight: 500; margin-bottom: 30px; line-height: 1.6; }
-        
-        /* Author Info */
-        .author-info { display: flex; align-items: center; gap: 15px; padding-top: 20px; border-top: 1px solid var(--line); }
-        .avatar { width: 44px; height: 44px; background: linear-gradient(135deg, var(--magenta), var(--amber)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-family: var(--font-mono); }
-        .author-details .name { font-weight: 600; color: var(--ink); display: block; font-size: 0.95rem; }
-        .author-details .date { color: var(--muted); font-size: 0.8rem; font-family: var(--font-mono); display: block; }
+        .article-lede { font-size: 1.15rem; color: var(--ink-soft); font-weight: 500; margin-bottom: 30px; line-height: 1.6; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
 
         /* Article Content */
         .article-body { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; font-size: 1.05rem; }
@@ -98,6 +92,14 @@
         .article-body ul { margin: 0 0 24px; padding-left: 20px; color: var(--muted); }
         .article-body ul li { margin-bottom: 10px; line-height: 1.7; }
         .article-body blockquote { margin: 30px 0; padding: 20px 24px; background: var(--paper-tint); border-left: 4px solid var(--violet); border-radius: 0 8px 8px 0; font-family: var(--font-accent); font-size: 1.15rem; color: var(--ink); font-style: italic; }
+
+        /* References */
+        .references { margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--line); }
+        .references h2 { font-size: 1.4rem; margin-bottom: 20px; color: var(--ink); }
+        .references ol { margin: 0; padding-left: 22px; color: var(--muted); }
+        .references ol li { margin-bottom: 14px; line-height: 1.6; font-size: 0.95rem; }
+        .references a { color: var(--violet); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+        .references a:hover { color: var(--magenta); }
 
         /* Footer */
                 .site-footer { background: var(--navy-fixed); color: #F0D6E4; padding: 64px 24px 30px; }
@@ -145,15 +147,7 @@
     <main class="page-hero">
         <a href="blogs.html" class="back-link">← Back to all posts</a>
         <h1 class="page-hero-title">Demystifying the Latest Breakthroughs in Quantum Algorithms</h1>
-        <p class="article-lede">Quantum computing is moving beyond the race for more qubits. The real battle is now about making quantum algorithms faster, more reliable, and practical.</p>
-        
-        <div class="author-info">
-            <div class="avatar">TD</div>
-            <div class="author-details">
-                <span class="name">Tech Desk</span>
-                <span class="date">9 min read</span>
-            </div>
-        </div>
+        <p class="article-lede">Quantum computing is moving beyond the race for more qubits. The real battle is now about making quantum algorithms faster, more reliable, and practical. · 9 min read</p>
     </main>
 
     <article class="article-body">
@@ -236,6 +230,18 @@
         <p>The most exciting part is that these improvements are beginning to happen simultaneously. We may still be years away from large-scale fault-tolerant quantum computers. But the question is no longer simply whether quantum computing works. We already know it does.</p>
         <p>The question now is much harder—and much more interesting: <strong>Can we engineer it well enough to make it useful?</strong></p>
         <p>And that is the problem the next generation of quantum researchers is trying to solve.</p>
+
+        <div class="references">
+            <h2>References</h2>
+            <ol>
+                <li>Piviul, N. <em>et al.</em> — <a href="https://www.nature.com/articles/s41586-026-10676-4" target="_blank" rel="noopener">A 98-qubit trapped-ion quantum computer with all-to-all connectivity</a>, <em>Nature</em> (2026); preprint at <a href="https://arxiv.org/abs/2511.05465" target="_blank" rel="noopener">arXiv:2511.05465</a>.</li>
+                <li>Quantinuum — <a href="https://www.quantinuum.com/blog/introducing-helios" target="_blank" rel="noopener">Introducing Helios</a>, overview of the 98-qubit QCCD trapped-ion processor.</li>
+                <li>Low, P. J., White, B. & Senko, C. — <a href="https://arxiv.org/html/2507.15799" target="_blank" rel="noopener">Quantum Logic Operations and Algorithms in a Single 25-Level Atomic Qudit</a>, <em>Nature Communications</em>, describing the 25-level trapped-ion qudit and single-ion four-qubit Toffoli gate.</li>
+                <li>Nikolaeva, A. S., Kiktenko, E. O. & Fedorov, A. K. — <a href="https://arxiv.org/abs/2203.04003" target="_blank" rel="noopener">Decomposing the Generalized Toffoli Gate with Qutrits</a>, <em>Physical Review A</em>, on reducing gate count for Toffoli implementations.</li>
+                <li>Preskill, J. — <a href="https://quantum-journal.org/papers/q-2018-08-06-79/" target="_blank" rel="noopener">Quantum Computing in the NISQ Era and Beyond</a>, <em>Quantum</em> 2, 79 (2018), on noise, error rates, and the path to fault tolerance.</li>
+                <li>IBM Quantum — <a href="https://www.ibm.com/quantum/blog" target="_blank" rel="noopener">Hardware-Aware Circuit Compilation</a>, on adapting quantum algorithms to real device connectivity and noise profiles.</li>
+            </ol>
+        </div>
     </article>
 
         <footer class="site-footer">
