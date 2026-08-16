@@ -403,6 +403,7 @@ const galleryData = {
 };
 
 const AUTOPLAY_DELAY_MS = 4500;
+const TESTIMONIAL_AUTOPLAY_DELAY_MS = 9000; // slower pace for reading longer quotes
 
 function buildImageSlider(container, images){
   if(!container || !images || !images.length) return;
@@ -509,8 +510,10 @@ function buildTestimonialSlider(container, testimonials){
       </div>
     </div>
     ${testimonials.length > 1 ? `
+    <button class="img-slider-btn prev" type="button" aria-label="Previous testimonial">‹</button>
+    <button class="img-slider-btn next" type="button" aria-label="Next testimonial">›</button>
     <div class="img-slider-dots">
-      ${testimonials.map((_, i) => `<span class="img-slider-dot${i === 0 ? " is-active" : ""}"></span>`).join("")}
+      ${testimonials.map((_, i) => `<button class="img-slider-dot${i === 0 ? " is-active" : ""}" type="button" data-idx="${i}" aria-label="Go to testimonial ${i + 1}"></button>`).join("")}
     </div>` : ""}
   `;
   const track = container.querySelector(".testimonial-slider-track");
@@ -522,12 +525,23 @@ function buildTestimonialSlider(container, testimonials){
   }
 
   function startAutoplay(){
-    if(testimonials.length < 2) return;
-    container._autoplayTimer = setInterval(() => goTo(idx + 1), AUTOPLAY_DELAY_MS);
-  }
+     if(testimonials.length < 2) return;
+     container._autoplayTimer = setInterval(() => goTo(idx + 1), TESTIMONIAL_AUTOPLAY_DELAY_MS);
+   }
   function stopAutoplay(){
     if(container._autoplayTimer){ clearInterval(container._autoplayTimer); container._autoplayTimer = null; }
   }
+  function restartAutoplay(){
+    stopAutoplay();
+    startAutoplay();
+  }
+
+  const prevBtn = container.querySelector(".img-slider-btn.prev");
+  const nextBtn = container.querySelector(".img-slider-btn.next");
+  if(prevBtn) prevBtn.addEventListener("click", () => { goTo(idx - 1); restartAutoplay(); });
+  if(nextBtn) nextBtn.addEventListener("click", () => { goTo(idx + 1); restartAutoplay(); });
+  dots.forEach(d => d.addEventListener("click", () => { goTo(Number(d.dataset.idx)); restartAutoplay(); }));
+
   container.addEventListener("mouseenter", stopAutoplay);
   container.addEventListener("mouseleave", startAutoplay);
   container.addEventListener("focusin", stopAutoplay);
