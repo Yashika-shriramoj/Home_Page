@@ -585,6 +585,15 @@ html[data-theme="dark"] .fest-card.event-card-select .fest-meta{
 }
 .img-slider-dot.is-active{background:var(--magenta); transform:scale(1.2);}
 
+/* ---------- testimonial slider: push arrows further from the card ---------- */
+.testimonial-slider .img-slider-btn.prev{ left: -52px; }
+.testimonial-slider .img-slider-btn.next{ right: -52px; }
+
+@media (max-width: 760px){
+  .testimonial-slider .img-slider-btn.prev{ left: -8px; }
+  .testimonial-slider .img-slider-btn.next{ right: -8px; }
+}
+
 /* ---------- events: category "tabs" — styled like the fest page's
    selectable cards (dark navy, corner gradient blob) rather than pills.
    Clicking one swaps which panel is shown below the grid. ---------- */
