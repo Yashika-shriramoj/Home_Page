@@ -403,6 +403,7 @@ const galleryData = {
 };
 
 const AUTOPLAY_DELAY_MS = 4500;
+const TESTIMONIAL_AUTOPLAY_DELAY_MS = 9000; // slower pace for reading longer quotes
 
 function buildImageSlider(container, images){
   if(!container || !images || !images.length) return;
@@ -524,9 +525,9 @@ function buildTestimonialSlider(container, testimonials){
   }
 
   function startAutoplay(){
-    if(testimonials.length < 2) return;
-    container._autoplayTimer = setInterval(() => goTo(idx + 1), AUTOPLAY_DELAY_MS);
-  }
+     if(testimonials.length < 2) return;
+     container._autoplayTimer = setInterval(() => goTo(idx + 1), TESTIMONIAL_AUTOPLAY_DELAY_MS);
+   }
   function stopAutoplay(){
     if(container._autoplayTimer){ clearInterval(container._autoplayTimer); container._autoplayTimer = null; }
   }
