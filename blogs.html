@@ -555,15 +555,56 @@
         .footer-credit{display:block; color:#D9A9C2; font-size:0.9rem; margin-bottom:10px;}
         .footer-copy{text-align:center; color:#8A6270; font-size:0.78rem; margin:50px 0 0;}
 
+        /* =====================================================
+           MOBILE RESPONSIVENESS (The Magic Fixes!)
+           ===================================================== */
         @media (max-width: 900px){
             .footer-inner{grid-template-columns:1fr; gap:32px;}
             .footer-links{grid-template-columns:1fr;}
         }
 
-        /* Mobile Responsiveness */
-        @media (max-width: 900px) {
+        @media (max-width: 768px) {
+            /* Fix Navbar stacking so links don't overlap */
+            .nav-wrap {
+                flex-direction: column;
+                gap: 16px;
+                padding: 16px;
+            }
+            .main-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            /* Container padding reduction for more screen space */
+            .container {
+                padding: 24px 16px;
+            }
+
+            /* Fix Spotlight: Image on top, less padding */
             .spotlight-card {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column-reverse; /* Puts image above text */
+            }
+            .spotlight-content {
+                padding: 24px;
+            }
+            .spotlight-card h1 {
+                font-size: 1.75rem; /* Scales text down */
+                margin-bottom: 12px;
+            }
+            
+            /* Align filter pills cleanly */
+            .filter-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .filter-left-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .sort-select {
+                margin-top: 10px;
+                width: 100%;
             }
         }
     </style>
