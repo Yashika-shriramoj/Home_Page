@@ -65,7 +65,7 @@
             --violet:     #6E93FF;
             --teal:       #45D6C9;
             --muted:      #93A3C6;
-            --line:       rgba(255, 255, 255, 0.05); /* beautiful subtle border in dark mode */
+            --line:       rgba(255, 255, 255, 0.05); 
             --shadow:     rgba(0,0,0,0.35);
             --grad-1:     #2A3F72;
             --grad-2:     #3B3873;
@@ -133,6 +133,30 @@
             align-items: center;
             gap: 10px;
         }
+        
+        /* Hamburger Menu Button - Hidden on Desktop */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 26px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 60;
+        }
+        .hamburger span {
+            width: 100%;
+            height: 2.5px;
+            background: var(--ink);
+            border-radius: 10px;
+            transition: all 0.3s linear;
+            position: relative;
+            transform-origin: 1px;
+        }
+
         .nav-right {
             display: flex; align-items: center; gap: 20px;
         }
@@ -438,7 +462,7 @@
         .story-card {
             background-color: var(--surface);
             border-radius: var(--radius);
-            overflow: hidden;
+            /* REMOVED overflow: hidden; so the dropdown menu can escape the card box! */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -449,12 +473,19 @@
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
+        .story-card:hover, .story-card:focus-within {
+            z-index: 10; /* Bring hovered/active card to front so dropdown doesn't go under next card */
+        }
+
         .card-image-container {
             width: 100%;
             height: 180px;
             background-color: var(--paper-tint);
             position: relative;
-            overflow: hidden;
+            /* Added border-radius directly here to replace the removed overflow:hidden from parent */
+            border-top-left-radius: var(--radius);
+            border-top-right-radius: var(--radius);
+            overflow: hidden; 
         }
 
         .card-image-container img {
@@ -479,8 +510,96 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
+            position: relative;
         }
 
+        .card-top-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* === NEW KEBAB MENU DOTS STYLING === */
+        .card-actions {
+            position: relative;
+        }
+
+        .menu-dots {
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .menu-dots:hover {
+            background: var(--paper-tint);
+            color: var(--ink);
+        }
+
+        .action-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            box-shadow: 0 8px 24px var(--shadow);
+            min-width: 170px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.2s cubic-bezier(.22,1,.36,1);
+            z-index: 50;
+            padding: 8px 0;
+        }
+
+        .action-dropdown.is-open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(4px);
+        }
+
+        .action-dropdown ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .action-dropdown li a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            text-decoration: none;
+            color: var(--ink-soft);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.15s ease;
+        }
+
+        .action-dropdown li a svg {
+            width: 16px;
+            height: 16px;
+            color: var(--muted);
+            transition: color 0.15s ease;
+        }
+
+        .action-dropdown li a:hover {
+            background-color: var(--paper-tint);
+            color: var(--magenta);
+        }
+        
+        .action-dropdown li a:hover svg {
+            color: var(--magenta);
+        }
+
+        /* Badges */
         .category-label {
             font-size: 0.68rem;
             font-weight: 500;
@@ -556,7 +675,7 @@
         .footer-copy{text-align:center; color:#8A6270; font-size:0.78rem; margin:50px 0 0;}
 
         /* =====================================================
-           MOBILE RESPONSIVENESS (The Magic Fixes!)
+           MOBILE RESPONSIVENESS WITH HAMBURGER MENU
            ===================================================== */
         @media (max-width: 900px){
             .footer-inner{grid-template-columns:1fr; gap:32px;}
@@ -564,36 +683,65 @@
         }
 
         @media (max-width: 768px) {
-            /* Fix Navbar stacking so links don't overlap */
             .nav-wrap {
-                flex-direction: column;
-                gap: 16px;
+                flex-wrap: wrap;
                 padding: 16px;
             }
-            .main-nav {
-                flex-wrap: wrap;
-                justify-content: center;
+            .hamburger {
+                display: flex;
             }
 
-            /* Container padding reduction for more screen space */
+            .nav-right {
+                display: none; 
+                width: 100%;
+                margin-top: 16px;
+                padding-top: 16px;
+                border-top: 1px solid var(--line);
+            }
+            .nav-right.is-open {
+                display: flex;
+            }
+            .main-nav {
+                flex-direction: column;
+                width: 100%;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .nav-link {
+                width: 100%;
+                padding: 12px;
+            }
+
+            .hamburger.is-active span:nth-child(1) {
+                transform: rotate(45deg);
+                top: 0px;
+                left: 2px;
+            }
+            .hamburger.is-active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.is-active span:nth-child(3) {
+                transform: rotate(-45deg);
+                top: 0px;
+                left: 2px;
+            }
+
             .container {
                 padding: 24px 16px;
             }
 
-            /* Fix Spotlight: Image on top, less padding */
             .spotlight-card {
                 display: flex;
-                flex-direction: column-reverse; /* Puts image above text */
+                flex-direction: column-reverse;
             }
             .spotlight-content {
                 padding: 24px;
             }
             .spotlight-card h1 {
-                font-size: 1.75rem; /* Scales text down */
+                font-size: 1.75rem; 
                 margin-bottom: 12px;
             }
             
-            /* Align filter pills cleanly */
             .filter-container {
                 flex-direction: column;
                 align-items: flex-start;
@@ -624,8 +772,15 @@
                     </span>
                 </button>
             </div>
-            <div class="nav-right">
-                <nav>
+            
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle Navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-right" id="navMenu">
+                <nav style="width: 100%;">
                     <ul class="main-nav">
                         <li><a href="index.html#home" class="nav-link">Home</a></li>
                         <li><a href="index.html#about" class="nav-link">About</a></li>
@@ -694,8 +849,24 @@
                 <div class="card-body">
                     <div>
                         <div class="card-top">
-                            <span class="category-label">Prism</span>
-                            <span class="badge badge-member">Member Post</span>
+                            <div class="card-top-left">
+                                <span class="category-label">Prism</span>
+                                <span class="badge badge-member">Member Post</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="menu-dots" aria-label="More options">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle>
+                                    </svg>
+                                </button>
+                                <div class="action-dropdown">
+                                    <ul>
+                                        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> Share URL</a></li>
+                                        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Save Post</a></li>
+                                        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Send to...</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <h3>My Journey Building a Multi-Sensor Hardware Warning System</h3>
                         <p>A step-by-step devlog detailing the collaborative design and debugging process of our recent induction task.</p>
@@ -714,8 +885,24 @@
                 <div class="card-body">
                     <div>
                         <div class="card-top">
-                            <span class="category-label">Algorithms</span>
-                            <span class="badge badge-news">News Explainer</span>
+                            <div class="card-top-left">
+                                <span class="category-label">Algorithms</span>
+                                <span class="badge badge-news">News Explainer</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="menu-dots" aria-label="More options">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle>
+                                    </svg>
+                                </button>
+                                <div class="action-dropdown">
+                                    <ul>
+                                        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> Share URL</a></li>
+                                        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Save Post</a></li>
+                                        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Send to...</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <h3>Demystifying the Latest Breakthroughs in Quantum Algorithms</h3>
                         <p>Breaking down recent industry announcements regarding qubit stability and dual-control Toffoli gate execution.</p>
@@ -734,8 +921,24 @@
                 <div class="card-body">
                     <div>
                         <div class="card-top">
-                            <span class="category-label">Diversity</span>
-                            <span class="badge badge-stem">STEM Highlight</span>
+                            <div class="card-top-left">
+                                <span class="category-label">Diversity</span>
+                                <span class="badge badge-stem">STEM Highlight</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="menu-dots" aria-label="More options">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle>
+                                    </svg>
+                                </button>
+                                <div class="action-dropdown">
+                                    <ul>
+                                        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> Share URL</a></li>
+                                        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> Save Post</a></li>
+                                        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Send to...</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <h3>Pioneers of Code: Celebrating Margaret Hamilton and Grace Hopper</h3>
                         <p>A historical deep-dive into the foundational engineering contributions made by women in early computational science.</p>
@@ -773,6 +976,42 @@
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
 
+        // Menu Dots Dropdown Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtns = document.querySelectorAll('.menu-dots');
+            
+            menuBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Stop click from bubbling up
+                    const dropdown = btn.nextElementSibling;
+                    
+                    // Close any other open dropdowns first
+                    document.querySelectorAll('.action-dropdown.is-open').forEach(menu => {
+                        if (menu !== dropdown) menu.classList.remove('is-open');
+                    });
+                    
+                    // Toggle current dropdown
+                    dropdown.classList.toggle('is-open');
+                });
+            });
+
+            // Close dropdowns when clicking anywhere else on the page
+            document.addEventListener('click', () => {
+                document.querySelectorAll('.action-dropdown.is-open').forEach(menu => {
+                    menu.classList.remove('is-open');
+                });
+            });
+        });
+
+        // Mobile Hamburger Menu Logic
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('is-active');
+            navMenu.classList.toggle('is-open');
+        });
+
         // Toggle theme and save choice to memory
         function toggleTheme() {
             const html = document.documentElement;
@@ -791,11 +1030,9 @@
             const sortSelect = document.querySelector('.sort-select');
             const storiesGrid = document.querySelector('.stories-grid');
             
-            // Get all story cards and store their original order so we can reset to "Most Recent"
             const storyCards = Array.from(document.querySelectorAll('.story-card'));
             storyCards.forEach((card, index) => card.dataset.originalIndex = index);
 
-            // Dictionary linking your button names to the text inside the actual badges
             const categoryMapping = {
                 'Member Posts': 'Member Post',
                 'News Explainers': 'News Explainer',
@@ -803,20 +1040,15 @@
             };
 
             function updateGrid() {
-                // 1. Check which filter button is currently active
                 const activeFilter = document.querySelector('.filter-pills .pill.active').textContent.trim();
-                
-                // 2. Check which sort dropdown option is selected
                 const activeSort = sortSelect.value;
 
-                // 3. Filter the cards based on category
                 let visibleCards = storyCards.filter(card => {
                     if (activeFilter === 'All') return true;
                     const cardBadgeText = card.querySelector('.badge').textContent.trim();
                     return cardBadgeText === categoryMapping[activeFilter];
                 });
 
-                // 4. Sort the remaining visible cards based on read time
                 if (activeSort === 'quick') {
                     visibleCards.sort((a, b) => parseInt(a.dataset.readTime) - parseInt(b.dataset.readTime));
                 } else if (activeSort === 'long') {
@@ -825,7 +1057,6 @@
                     visibleCards.sort((a, b) => parseInt(a.dataset.originalIndex) - parseInt(b.dataset.originalIndex));
                 }
 
-                // 5. Update the page to reflect changes
                 storyCards.forEach(card => card.style.display = 'none');
                 
                 visibleCards.forEach(card => {
@@ -834,7 +1065,6 @@
                 });
             }
 
-            // Listen for clicks on the filter pill buttons
             filterPills.forEach(pill => {
                 pill.addEventListener('click', (e) => {
                     filterPills.forEach(p => p.classList.remove('active'));
@@ -843,7 +1073,6 @@
                 });
             });
 
-            // Listen for selection changes on the sort dropdown
             sortSelect.addEventListener('change', updateGrid);
         });
     </script>
