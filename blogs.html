@@ -84,6 +84,7 @@
             color:var(--ink);
             background:var(--paper);
             -webkit-font-smoothing:antialiased;
+            overflow-x:hidden;
         }
 
         h1,h2,h3,h4{font-family:var(--font-display); margin:0; line-height:1.1; font-weight:600; letter-spacing:-0.01em;}
@@ -91,6 +92,7 @@
         a{color:inherit;}
         ul{margin:0; padding:0; list-style:none;}
         button{font-family:inherit; cursor:pointer;}
+        img{max-width:100%; display:block;}
 
         /* Background Animated Gradient */
         .site-bg{
@@ -162,6 +164,7 @@
         }
         .main-nav {
             display: flex; align-items: center; gap: 6px; list-style: none;
+            flex-wrap: wrap;
         }
         .nav-link {
             font-size: 0.92rem; font-weight: 500; text-decoration: none; color: var(--ink-soft);
@@ -245,6 +248,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            min-width: 0;
         }
 
         .spotlight-image-container {
@@ -277,7 +281,7 @@
         }
 
         .spotlight-card h1 {
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
             margin-bottom: 20px;
             line-height: 1.1;
             color: var(--ink);
@@ -300,6 +304,7 @@
         .avatar {
             width: 38px;
             height: 38px;
+            flex-shrink: 0;
             background: linear-gradient(135deg, var(--magenta), var(--amber));
             border-radius: 50%;
             display: flex;
@@ -347,6 +352,7 @@
             bottom: calc(100% + 10px);
             left: 0;
             width: 280px;
+            max-width: calc(100vw - 48px);
             background: var(--surface);
             border: 1px solid var(--line);
             border-radius: 12px;
@@ -361,7 +367,8 @@
         }
 
         .author-details:hover .author-bio-popup,
-        .author-details:focus-within .author-bio-popup {
+        .author-details:focus-within .author-bio-popup,
+        .author-details.is-open .author-bio-popup {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
@@ -415,6 +422,7 @@
             font-weight: 500;
             font-family: var(--font-mono);
             transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+            white-space: nowrap;
         }
 
         .pill.active {
@@ -517,6 +525,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
         }
 
         /* === NEW KEBAB MENU DOTS STYLING === */
@@ -551,6 +560,7 @@
             border-radius: 10px;
             box-shadow: 0 8px 24px var(--shadow);
             min-width: 170px;
+            max-width: calc(100vw - 48px);
             opacity: 0;
             visibility: hidden;
             transform: translateY(-8px);
@@ -588,6 +598,7 @@
             height: 16px;
             color: var(--muted);
             transition: color 0.15s ease;
+            flex-shrink: 0;
         }
 
         .action-dropdown li a:hover {
@@ -616,6 +627,7 @@
             text-transform: uppercase;
             font-weight: 500;
             font-family: var(--font-mono);
+            white-space: nowrap;
         }
 
         .badge-member { background: var(--paper-tint); color: var(--violet); }
@@ -642,6 +654,8 @@
             border-top: 1px solid var(--line);
             padding-top: 16px;
             margin-top: auto;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .read-more {
@@ -741,18 +755,78 @@
                 font-size: 1.75rem; 
                 margin-bottom: 12px;
             }
-            
+            .spotlight-image-container {
+                min-height: 220px;
+            }
+
             .filter-container {
                 flex-direction: column;
                 align-items: flex-start;
             }
             .filter-left-group {
                 width: 100%;
+                flex-direction: column;
+                align-items: stretch;
                 justify-content: space-between;
+            }
+            .filter-pills {
+                width: 100%;
             }
             .sort-select {
                 margin-top: 10px;
                 width: 100%;
+            }
+
+            .stories-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .section-title-mono {
+                font-size: 1.05rem;
+            }
+
+            .footer-inner {
+                text-align: left;
+            }
+        }
+
+        /* Small phones */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 14px;
+            }
+            .spotlight-content {
+                padding: 20px;
+            }
+            .spotlight-card h1 {
+                font-size: 1.45rem;
+            }
+            .spotlight-card p {
+                font-size: 0.92rem;
+            }
+            .card-body {
+                padding: 18px;
+            }
+            .pill {
+                padding: 8px 14px;
+                font-size: 0.72rem;
+            }
+            .author-bio-popup {
+                width: 240px;
+            }
+            .site-footer {
+                padding: 48px 16px 24px;
+            }
+        }
+
+        /* Touch devices: hover-only popup becomes unreachable, so allow tap toggle
+           (handled via .is-open class added by JS below) and disable the hover rule's
+           reliance on precise pointers */
+        @media (hover: none) {
+            .author-bio-popup {
+                bottom: auto;
+                top: calc(100% + 10px);
             }
         }
     </style>
@@ -1001,6 +1075,21 @@
                     menu.classList.remove('is-open');
                 });
             });
+
+            // Author bio popup: on touch devices (no hover), tap to toggle instead
+            document.querySelectorAll('.author-details').forEach(detail => {
+                detail.addEventListener('click', (e) => {
+                    if (window.matchMedia('(hover: none)').matches) {
+                        e.stopPropagation();
+                        const wasOpen = detail.classList.contains('is-open');
+                        document.querySelectorAll('.author-details.is-open').forEach(d => d.classList.remove('is-open'));
+                        if (!wasOpen) detail.classList.add('is-open');
+                    }
+                });
+            });
+            document.addEventListener('click', () => {
+                document.querySelectorAll('.author-details.is-open').forEach(d => d.classList.remove('is-open'));
+            });
         });
 
         // Mobile Hamburger Menu Logic
@@ -1010,6 +1099,14 @@
         hamburgerBtn.addEventListener('click', () => {
             hamburgerBtn.classList.toggle('is-active');
             navMenu.classList.toggle('is-open');
+        });
+
+        // Close the mobile menu automatically once a nav link is tapped
+        navMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburgerBtn.classList.remove('is-active');
+                navMenu.classList.remove('is-open');
+            });
         });
 
         // Toggle theme and save choice to memory
